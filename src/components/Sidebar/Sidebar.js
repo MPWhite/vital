@@ -2,10 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import "./Sidebar.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChartBar,
-  faBell,
-} from "@fortawesome/free-regular-svg-icons";
+import { faChartBar, faBell } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 import { useSwipeable } from "react-swipeable";
 

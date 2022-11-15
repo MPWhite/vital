@@ -15,4 +15,3 @@ const BoulderMap = () => {
 };
 
 export default BoulderMap;
-

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import BoulderUpload from "./layouts/BoulderUpload/BoulderUpload";
 import BoulderMap from "./layouts/BoulderMap";
 

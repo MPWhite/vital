@@ -52,4 +52,3 @@ const BoulderUploadMap = ({ boulderRating, input: { value, onChange } }) => {
 };
 
 export default BoulderUploadMap;
-

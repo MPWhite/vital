@@ -35,5 +35,4 @@ const BoulderCard = ({ title, imgSrc, holdColor, ratingColor }) => {
   );
 };
 
-
 export default BoulderCard;

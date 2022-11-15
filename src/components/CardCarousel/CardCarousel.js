@@ -31,7 +31,7 @@ const useOnScreen = (ref) => {
 
 const CardCarousel = ({ setActiveBoulderMap }) => {
   const numChildren = mockData.length;
-  const ref = useRef()
+  const ref = useRef();
   const childrenCards = mockData.map((b) => {
     return (
       <Card>
