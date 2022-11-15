@@ -1,9 +1,11 @@
 import React from 'react';
+import BoulderUpload from "./layouts/BoulderUpload/BoulderUpload";
+import BoulderMap from "./layouts/BoulderMap";
 
 function App() {
   return (
-    <div className="App">
-      <h1>HEllo, world!</h1>
+    <div>
+      <BoulderMap />
     </div>
   );
 }

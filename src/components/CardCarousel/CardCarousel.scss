@@ -1,0 +1,14 @@
+.CarouselWrapper {
+  top: 250px;
+  width: 100vw;
+  display: flex;
+  overflow: scroll;
+  scroll-snap-type: x mandatory;
+  padding: 0 50px 0 50px;
+}
+
+.Card {
+  margin: 20px;
+  flex: 10 0 auto;
+  scroll-snap-align: center;
+}

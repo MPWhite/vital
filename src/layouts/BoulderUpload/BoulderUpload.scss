@@ -1,0 +1,43 @@
+.BoulderUpload {
+  padding-left: 10px;
+  padding-right: 10px;
+
+  &__Submit {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 150px;
+    background-color: black;
+    color: white;
+    border: none;
+    margin-top: 15px;
+    font-weight: 800;
+    font-size: 18px;
+    margin-left: -10px;
+  }
+
+  &__Submit:disabled {
+    display: none;
+  }
+}
+
+.RatingSelection {
+  display: flex;
+  justify-content: space-around;
+
+  &__Option {
+    padding: 3px;
+    border-radius: 50%;
+    div {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+    }
+
+    &--active {
+      background-color: black;
+      box-shadow: 0 3px 10px black;
+    }
+  }
+}
