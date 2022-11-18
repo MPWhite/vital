@@ -1,46 +1,104 @@
 $description-height: 80px;
 
 .BoulderCard {
-  width: 250px;
+  width: 200px;
   background-color: black;
+  border-radius: 10px;
+
+  &--active {
+    box-shadow: #bbb 5px 5px 5px;
+  }
 
   &__Image {
+    position: relative;
+
     img {
-      width: 100%;
-      height: 300px;
+      height: 201px;
+      width: 200px;
+      border-radius: 10px;
     }
   }
 
   &__Description {
+    padding: 10px 10px 3px 10px;
     display: flex;
-    justify-content: space-between;
-    padding-left: 15px;
-    padding-right: 15px;
+    flex-direction: column;
 
     &__Title {
-      font-weight: bold;
-      font-size: 24px;
-      line-height: $description-height;
+      font-weight: bolder;
+      font-size: 16px;
+      color: #eee;
     }
-  }
 
-  &__Metadata {
-    height: $description-height;
-    text-align: center;
-    padding-top: 22px;
-    &__Circle {
-      height: 25px;
-      width: 25px;
-      border-radius: 50%;
-      margin-bottom: -2px;
-    }
-    span {
+    &__Subtitle {
       font-size: 10px;
-      color: #ddd !important;
+      color: #999;
+    }
+
+
+    &__Metadata {
+      display: flex;
+      justify-content: space-around;
+    }
+
+  }
+
+  &__Circle {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;;
+    border: 3px black solid;
+    text-align: center;
+    font-size: 8px;
+    line-height: 20px;
+    color: black;
+    font-weight: 900;
+  }
+
+  &__Holds {
+    right: 35px;
+    top: 189px;
+    background-color: red;
+  }
+  &__Rating {
+    right: 5px;
+    top: 189px;
+    background-color: purple;
+  }
+
+  &__PillContainer {
+    margin-top: 5px;
+    padding-bottom: 10px;
+    display: flex;
+  }
+
+  &__Pill {
+    background-color: #444;
+    font-size: 10px;
+    margin: 3px;
+    padding: 2px 5px 2px 5px;
+    border-radius: 10px;
+    color: white
+  }
+
+  &__ActionContainer {
+    display: flex;
+    padding: 5px 15px 15px 15px;
+
+    button {
+      color: inherit;
+      border: none;
+      font: inherit;
+      cursor: pointer;
+      outline: inherit;
+      background-color: #27f710;
+      font-size: 10px;
+      height: 25px;
+      border-radius: 25px;
+      padding: 2px 8px 2px 8px;
+      right: 0;
     }
   }
 
-  span {
-    color: white;
-  }
 }

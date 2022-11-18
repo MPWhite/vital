@@ -16,7 +16,7 @@ const Pin = ({ x, y, color, active }) => {
   );
 };
 
-const GymMap = ({ boulderId }) => {
+const GymMap = ({ activePinId }) => {
   return (
     <div className="GymMap">
       <img src="./gymMap.png" />
@@ -25,7 +25,7 @@ const GymMap = ({ boulderId }) => {
           x={b.location.x}
           y={b.location.y}
           color={b.rating}
-          active={b.id === boulderId}
+          active={b.id === activePinId}
         />
       ))}
     </div>

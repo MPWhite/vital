@@ -1,36 +1,31 @@
 import React from "react";
+import classnames from "classnames";
 import "./BoulderCard.scss";
 
-const BoulderCard = ({ title, imgSrc, holdColor, ratingColor }) => {
+const BoulderCard = ({ title, imgSrc, holdColor, ratingColor, active }) => {
   return (
-    <div className="BoulderCard">
+    <div
+      className={classnames("BoulderCard", { "BoulderCard--active": active })}
+    >
       <div className="BoulderCard__Image">
+        <div className="BoulderCard__Circle BoulderCard__Holds">V</div>
+        <div className="BoulderCard__Circle BoulderCard__Rating">H</div>
         <img src={imgSrc} alt="tmp" />
       </div>
       <div className="BoulderCard__Description">
         <span className="BoulderCard__Description__Title">{title}</span>
-        <div className="BoulderCard__Metadata">
-          <div
-            className="BoulderCard__Metadata__Circle"
-            style={{ backgroundColor: holdColor }}
-          />
-          <span>Holds</span>
-        </div>
-        <div className="BoulderCard__Metadata">
-          <div
-            className="BoulderCard__Metadata__Circle"
-            style={{ backgroundColor: ratingColor }}
-          />
-          <span>Rating</span>
-        </div>
-        <div className="BoulderCard__Metadata">
-          <div
-            className="BoulderCard__Metadata__Circle"
-            style={{ backgroundColor: "white" }}
-          />
-          <span>Sender</span>
+        <span className="BoulderCard__Description__Subtitle">
+          Named by: Matt
+        </span>
+        <div className="BoulderCard__PillContainer">
+          <div className="BoulderCard__Pill">Crimps</div>
+          <div className="BoulderCard__Pill">Heel hooks</div>
+          <div className="BoulderCard__Pill">Dyno</div>
         </div>
       </div>
+      {/*<div className="BoulderCard__ActionContainer">*/}
+      {/*  <button>Record Send</button>*/}
+      {/*</div>*/}
     </div>
   );
 };

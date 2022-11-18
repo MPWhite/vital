@@ -1,6 +1,6 @@
 import React from "react";
-import BoulderUpload from "./layouts/BoulderUpload/BoulderUpload";
 import BoulderMap from "./layouts/BoulderMap";
+import BoulderUpload from "./layouts/BoulderUpload/BoulderUpload";
 
 function App() {
   return (

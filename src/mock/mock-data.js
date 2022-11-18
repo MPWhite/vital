@@ -1,7 +1,7 @@
 export const mockData = [
   {
     id: 1,
-    title: "Hang #3",
+    title: "Boulder 1",
     img: "./boulder-image-1.png",
     location: { x: "50%", y: "80%" },
     rating: "green",
@@ -9,7 +9,7 @@ export const mockData = [
   },
   {
     id: 2,
-    title: "Jump",
+    title: "Boulder 2",
     img: "./boulder-image-2.jpg",
     location: { x: "40%", y: "55%" },
     rating: "orange",
@@ -17,7 +17,7 @@ export const mockData = [
   },
   {
     id: 3,
-    title: "Huck It",
+    title: "Boulder 3",
     img: "./boulder-image-3.jpg",
     location: { x: "77%", y: "38%" },
     rating: "red",
@@ -25,7 +25,7 @@ export const mockData = [
   },
   {
     id: 4,
-    title: "Pretzel",
+    title: "Boulder 4",
     img: "./boulder-image-4.jpg",
     location: { x: "90%", y: "51%" },
     rating: "orange",
@@ -33,7 +33,7 @@ export const mockData = [
   },
   {
     id: 5,
-    title: "Sender",
+    title: "Boulder 5",
     img: "./boulder-image-1.png",
     location: { x: "40%", y: "38%" },
     rating: "red",
@@ -41,7 +41,7 @@ export const mockData = [
   },
   {
     id: 6,
-    title: "Swinger",
+    title: "Boulder 6",
     img: "./boulder-image-2.jpg",
     location: { x: "48%", y: "45%" },
     rating: "purple",
@@ -49,7 +49,7 @@ export const mockData = [
   },
   {
     id: 7,
-    title: "Invert #2",
+    title: "Boulder 7",
     img: "./boulder-image-3.jpg",
     location: { x: "49%", y: "52%" },
     rating: "green",
@@ -57,7 +57,7 @@ export const mockData = [
   },
   {
     id: 8,
-    title: "Ramp",
+    title: "Boulder 8",
     img: "./boulder-image-4.jpg",
     location: { x: "33%", y: "80%" },
     rating: "orange",

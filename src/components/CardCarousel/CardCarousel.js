@@ -29,7 +29,7 @@ const useOnScreen = (ref) => {
   return isIntersecting;
 };
 
-const CardCarousel = ({ setActiveBoulderMap }) => {
+const CardCarousel = ({ activePinId, setActivePinId }) => {
   const numChildren = mockData.length;
   const ref = useRef();
   const childrenCards = mockData.map((b) => {
@@ -41,6 +41,7 @@ const CardCarousel = ({ setActiveBoulderMap }) => {
           imgSrc={b.img}
           holdColor={b.holds}
           ratingColor={b.rating}
+          active={b.id === activePinId}
         />
       </Card>
     );
@@ -51,14 +52,14 @@ const CardCarousel = ({ setActiveBoulderMap }) => {
     const widthPerChildren = ref.current.scrollWidth / numChildren;
     const eleIdx = Math.round(ref.current.scrollLeft / widthPerChildren);
     const eleId = mockData[eleIdx].id;
-    setActiveBoulderMap(eleId);
+    setActivePinId(eleId);
   };
 
   return (
     <div
       ref={ref}
       className="CarouselWrapper"
-      onScroll={_.debounce(handleScroll, 50)}
+      onScroll={_.debounce(handleScroll, 10)}
     >
       {childrenCards}
     </div>
