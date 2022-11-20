@@ -1,0 +1,198 @@
+.BoulderPage {
+  width: 100vw;
+  background-color: black;
+
+  &--expanded {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  &--active {
+    box-shadow: #bbb 5px 5px 5px;
+  }
+
+  &__Description {
+    display: flex;
+    flex-direction: column;
+
+    &__Title {
+      font-weight: bolder;
+      font-size: 24px;
+      color: #eee;
+    }
+
+    &__Subtitle {
+      font-size: 12px;
+      color: #999;
+    }
+
+
+    &__Metadata {
+      display: flex;
+      justify-content: space-around;
+    }
+
+  }
+
+  &__PillContainer {
+    margin-top: 5px;
+    padding-bottom: 10px;
+    display: flex;
+  }
+
+  &__Pill {
+    background-color: #444;
+    font-size: 14px;
+    margin: 3px;
+    padding: 2px 10px 2px 10px;
+    border-radius: 10px;
+    color: white
+  }
+
+}
+
+.Content {
+  padding: 10px
+}
+
+.Section {
+  border-top: #444 1px solid;
+  padding: 15px 0 15px 0;
+
+  &__Title {
+    font-weight: bold;
+    font-size: 18px;
+    color: #eee;
+  }
+
+  &__FlexSubsection {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+}
+
+.SendPill {
+  background-color: #444;
+  display: flex;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 15px;
+  margin: 5px;
+  padding: 0 15px 0 0;
+
+  &__Image {
+    position: relative;
+    height: 30px;
+    width: 30px;
+    background-color: grey;
+    border-radius: 50%;
+
+    img {
+      height: 30px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+  }
+
+  span {
+    margin-left: 5px;
+    color: white;
+  }
+
+}
+
+
+.ImageGallery {
+  display: flex;
+  overflow: scroll;
+  scroll-snap-type: x mandatory;
+  position: relative;
+
+  div {
+    scroll-snap-align: center;
+  }
+
+  img {
+    width: 100vw;
+    aspect-ratio: 1;
+  }
+
+  video {
+    width: 100vw;
+    background-color: black;
+    aspect-ratio: 1;
+  }
+}
+
+.StatCard {
+  background-color: #444;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  text-align: center;
+  margin: 5px;
+  width: 90px;
+
+    &__Title {
+      font-size: 10px;
+      color: #777;
+    }
+
+    &__Value {
+      font-size: 24px;
+      color: #eee;
+    }
+}
+
+.BoulderPageButtons {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+
+  button {
+    border: none;
+    height: 45px;
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    transition-property: width, left;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+.NotCompletedButton {
+  width: 48%;
+  background-image: linear-gradient(#3b6df8, #4555e0);
+}
+
+.BoulderCompletedButton--not-completed {
+  position: absolute;
+  left: 50%
+}
+
+.BoulderCompletedButton--completed {
+  position: absolute;
+  background-color: #307c11 !important;
+  width: 90%;
+  left: 5%;
+}
+
+.BoulderAttemptedButton--completed {
+  display: none;
+}
+
+.HELP {
+  background-color: lime;
+  position: fixed;
+  height: 100px;
+  width: 100px;
+  top: 50%;
+  left: 50%
+}
