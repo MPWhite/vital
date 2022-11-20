@@ -8,8 +8,9 @@ const BoulderCard = ({ title, imgSrc, holdColor, ratingColor, active }) => {
       className={classnames("BoulderCard", { "BoulderCard--active": active })}
     >
       <div className="BoulderCard__Image">
-        <div className="BoulderCard__Circle BoulderCard__Holds">V</div>
-        <div className="BoulderCard__Circle BoulderCard__Rating">H</div>
+        <div className="BoulderCard__Circle BoulderCard__Holds"></div>
+        <div className="BoulderCard__Circle BoulderCard__HoldsBorder"></div>
+        <div className="BoulderCard__Circle BoulderCard__Rating"></div>
         <img src={imgSrc} alt="tmp" />
       </div>
       <div className="BoulderCard__Description">
