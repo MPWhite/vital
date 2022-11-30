@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const SendListSortDiv = styled.div`
-  margin-top: 5px;
+  margin-top: 5pt x;
   text-align: right;
   margin-bottom: 5px;
 `;

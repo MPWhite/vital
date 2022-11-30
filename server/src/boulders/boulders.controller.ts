@@ -19,14 +19,6 @@ import { IsEnum, IsNotEmpty } from 'class-validator';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Rating } from '@prisma/client';
 
-class RecordAttemptDto {
-  @IsNotEmpty()
-  @ApiProperty({ example: '1' })
-  boulderId: number;
-  @IsNotEmpty()
-  completed: boolean;
-}
-
 class SetBoulderNameDto {
   @IsNotEmpty()
   @ApiProperty({ example: '1' })
@@ -56,10 +48,20 @@ export class BouldersController {
   constructor(private readonly boulders: BouldersService) {}
 
   @UseGuards(JwtAuthGuard)
-  @Post('/attempt')
-  @ApiBody({ type: RecordAttemptDto })
-  recordAttempt(@Request() req, @Body() attempt: RecordAttemptDto) {
-    return this.boulders.recordAttempt(req.user.id, attempt.boulderId);
+  @Post('/:boulderId/attempt')
+  @ApiParam({ name: 'boulderId', example: '1' })
+  recordAttempt(@Request() req, @Param() param: { boulderId: string }) {
+    return this.boulders.recordAttempt(req.user.id, parseInt(param.boulderId));
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('/:boulderId/complete')
+  @ApiParam({ name: 'boulderId', required: true })
+  complete(@Request() req, @Param() param: { boulderId: string }) {
+    return this.boulders.completeBoulder(
+      req.user.id,
+      parseInt(param.boulderId),
+    );
   }
 
   @Get('/')
