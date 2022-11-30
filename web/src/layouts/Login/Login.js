@@ -1,59 +1,43 @@
-import React, { Component } from "react";
-import "./Auth.scss";
-import ErrorBar from "../../components/ErrorBar";
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Formik, Field, Form } from "formik";
 
-class Login extends Component {
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const { loginUser, values } = this.props;
-    if (values && values.email && values.password) {
-      loginUser(values.email, values.password);
-    }
-  };
+const BoulderUploadWrapper = styled.div`
+  padding: 20px;
+`;
 
-  render() {
-    const { submitting, pristine, invalid } = this.props;
-    return (
-      <div className="AuthPage">
-        <ErrorBar />
-        <div className="AuthForm">
-          <div className="AuthForm__header">
-            <img
-              className="AuthFrom__icon"
-              src="https://uploads-ssl.webflow.com/5fe114d1a2723851f578ebb9/6024050efd63c5f9fd979774_dcp_logo_versions-02.png"
-            />
-            <h1>DCP Vision</h1>
-          </div>
-          <form className="AuthForm__form" onSubmit={this.handleSubmit}>
-            <div className="AuthForm__field AuthForm__phone">
-              <label className="AuthForm__label" htmlFor="email">
-                Email address
-              </label>
-              {/*TODO*/}
-              {/*<Field name="email" component="input" />*/}
-            </div>
-            <div className="AuthForm__field AuthForm__password">
-              <label className="AuthForm__label" htmlFor="password">
-                Password
-              </label>
-              {/*TODO*/}
-              {/*<Field name="password" component="input" type="password" />*/}
-            </div>
-            <div className="AuthForm__buttons">
-              <button
-                id="login"
-                type="submit"
-                value="Login"
-                disabled={submitting || pristine || invalid}
-              >
-                Login
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    );
-  }
+const Title = styled.span`
+  font-weight: bold;
+  font-size: 36px;
+  color: white;
+`;
+
+const LoginEmail = styled.input`
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+`;
+
+export function Login() {
+  return (
+    <BoulderUploadWrapper>
+      <Title>Login</Title>
+      <Formik
+        initialValues={{ name: "", email: "" }}
+        onSubmit={async (values) => {
+          await new Promise((resolve) => setTimeout(resolve, 500));
+          alert(JSON.stringify(values, null, 2));
+        }}
+      >
+        <Form>
+          {/*<LoginEmail name="name" type="text" />*/}
+          <Field name="name" type="text" as={LoginEmail} />
+          <Field name="email" type="email" />
+          <button type="submit">Submit</button>
+        </Form>
+      </Formik>
+    </BoulderUploadWrapper>
+  );
 }
 
 export default Login;
