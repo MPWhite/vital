@@ -5,18 +5,31 @@ import styled from "styled-components";
 import { BoulderMapFilter } from "./BoulderMapFilter";
 
 const BoulderMapWrapper = styled.div`
-  padding: 0;
+  display: flex;
+  flex-direction: column;
   background-color: black;
+`;
+
+const DummyHeader = styled.div`
+  height: 50px;
+  width: 100vw;
+  background-color: #1098f7;
 `;
 
 export const BoulderMap = () => {
   const [activePinId, setActivePinId] = useState(1);
   return (
-    <BoulderMapWrapper>
-      {/*<BoulderMapFilter />*/}
-      <GymMap activePinId={activePinId} />
-      <CardCarousel activePinId={activePinId} setActivePinId={setActivePinId} />
-    </BoulderMapWrapper>
+    <>
+      <DummyHeader />
+      <BoulderMapWrapper>
+        <GymMap activePinId={activePinId} />
+        <CardCarousel
+          activePinId={activePinId}
+          setActivePinId={setActivePinId}
+        />
+        <BoulderMapFilter />
+      </BoulderMapWrapper>
+    </>
   );
 };
 

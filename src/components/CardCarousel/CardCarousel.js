@@ -3,10 +3,10 @@ import "./CardCarousel.scss";
 import BoulderCard from "../BoulderCard";
 import { mockData } from "../../mock/mock-data";
 import _ from "lodash";
+import styled from "styled-components";
 
 const Card = (props) => {
   const ref = useRef();
-  const isVisible = useOnScreen(ref);
   return (
     <div ref={ref} className="Card">
       {props.children}
@@ -28,6 +28,8 @@ const useOnScreen = (ref) => {
   }, []);
   return isIntersecting;
 };
+
+const CarouselWrapper = styled.div``;
 
 const CardCarousel = ({ activePinId, setActivePinId }) => {
   const numChildren = mockData.length;
@@ -56,13 +58,15 @@ const CardCarousel = ({ activePinId, setActivePinId }) => {
   };
 
   return (
-    <div
-      ref={ref}
-      className="CarouselWrapper"
-      onScroll={_.debounce(handleScroll, 10)}
-    >
-      {childrenCards}
-    </div>
+    <CarouselWrapper>
+      <div
+        ref={ref}
+        className="CarouselWrapper"
+        onScroll={_.debounce(handleScroll, 10)}
+      >
+        {childrenCards}
+      </div>
+    </CarouselWrapper>
   );
 };
 

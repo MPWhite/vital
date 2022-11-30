@@ -1,148 +1,201 @@
 import React from "react";
 import "./BoulderPage.scss";
-import classnames from "classnames";
-import Confetti from "react-dom-confetti";
 import { Link } from "react-router-dom";
+import { ImageGallery } from "./ImageGallery";
+import { Buttons } from "./Buttons";
+import styled from "styled-components";
 
-function ImageGallery() {
-  return (
-    <div className="ImageGallery">
-      <div>
-        <img src="/boulder-image-1.png" alt="tmp" />
-      </div>
-      <div>
-        <video src="/climb.mp4" controls />
-      </div>
-    </div>
-  );
-}
+const BoulderPageDiv = styled.div`
+  width: 100vw;
+  background-color: black;
+`;
 
-const config = {
-  angle: 90,
-  spread: 360,
-  startVelocity: 40,
-  elementCount: 70,
-  dragFriction: 0.12,
-  duration: "2290",
-  stagger: 3,
-  width: "10px",
-  height: "10px",
-  perspective: "500px",
-  colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
-};
+const ContentDiv = styled.div`
+  padding: 10px;
+`;
 
-function Buttons() {
-  const [attemptCount, setAttemptCount] = React.useState(0);
-  const [isCompleted, setIsCompleted] = React.useState(false);
-  const [showConfetti, setShowConfetti] = React.useState(false);
+const BoulderDescription = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
-  return (
-    <div className="Section__FlexSubsection BoulderPageButtons">
-      <button
-        onClick={() => {
-          setAttemptCount(attemptCount + 1);
-        }}
-        className={classnames("", {
-          "BoulderAttemptedButton--completed": isCompleted,
-          NotCompletedButton: !isCompleted,
-        })}
-      >
-        Attempted ({attemptCount})
-      </button>
-      <button
-        onClick={() => {
-          setIsCompleted(!isCompleted);
-        }}
-        className={classnames("", {
-          "BoulderCompletedButton--completed": isCompleted,
-          "BoulderCompletedButton--not-completed": !isCompleted,
-          NotCompletedButton: !isCompleted,
-        })}
-        {...(isCompleted ? { disabled: true } : {})}
-      >
-        {isCompleted ? "Completed!" : "Completed"}
-      </button>
-      <Confetti active={isCompleted} config={config} />
-    </div>
-  );
-}
+const BoulderTitle = styled.span`
+  font-weight: bolder;
+  font-size: 24px;
+  color: #eee;
+`;
+
+const BoulderSubtitle = styled.span`
+  font-size: 12px;
+  color: #999;
+`;
+
+const PillContainer = styled.div`
+  margin-top: 5px;
+  padding-bottom: 10px;
+  display: flex;
+`;
+
+const Pill = styled.div`
+  background-color: #222;
+  font-size: 14px;
+  margin: 3px;
+  padding: 2px 10px 2px 10px;
+  border-radius: 10px;
+  color: white;
+`;
+
+const Section = styled.div`
+  border-top: #222 1px solid;
+  padding: 15px 0 15px 0;
+`;
+
+const SectionTitle = styled.span`
+  font-weight: bold;
+  font-size: 18px;
+  color: #eee;
+`;
+
+const FlexSubSection = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+`;
+
+const StatSubSection = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  justify-content: space-between;
+`;
+
+const SendPill = styled.div`
+  background-color: #222;
+  display: flex;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 15px;
+  margin: 5px;
+  padding: 0 15px 0 0;
+`;
+
+const SendPillImage = styled.div`
+  position: relative;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+
+  img {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    height: 26px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+`;
+
+const SendPillName = styled.span`
+  margin-left: 5px;
+  color: white;
+  font-size: 12px;
+`;
+
+const StatCard = styled.div`
+  background-color: #222;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  text-align: center;
+  width: 28%;
+`;
+
+const StatCardTitle = styled.span`
+  font-size: 10px;
+  color: #777;
+`;
+
+const StatCardValue = styled.span`
+  font-size: 22px;
+  font-weight: bold;
+  padding: 10px;
+  color: #eee;
+`;
 
 export function BoulderPage() {
   return (
-    <div className="BoulderPage">
+    <BoulderPageDiv>
       <ImageGallery />
-      <div className="Content">
-        <div className="BoulderPage__Description">
-          <span className="BoulderPage__Description__Title">
-            Megatron (but harder)
-          </span>
-          <span className="BoulderPage__Description__Subtitle">
-            Named by: Matt
-          </span>
-          <div className="BoulderPage__PillContainer">
-            <div className="BoulderPage__Pill">Crimps</div>
-            <div className="BoulderPage__Pill">Heel hooks</div>
-            <div className="BoulderPage__Pill">Dyno</div>
-          </div>
-        </div>
-        <div className="Section">
-          <span className="Section__Title">Boulder Stats</span>
-          <div className="Section__FlexSubsection">
-            <div className="StatCard">
-              <span className="StatCard__Title">Completion</span>
-              <span className="StatCard__Value">89%</span>
-            </div>
-            <div className="StatCard">
-              <span className="StatCard__Title">Avg Attempts</span>
-              <span className="StatCard__Value">13</span>
-            </div>
-            <div className="StatCard">
-              <span className="StatCard__Title">Elo</span>
-              <span className="StatCard__Value">3124.2</span>
-            </div>
-          </div>
-        </div>
-        <div className="Section">
-          <span className="Section__Title">Recorded Sends</span>
-          <div className="Section__FlexSubsection">
+      <ContentDiv>
+        <BoulderDescription>
+          <BoulderTitle>Megatron (but harder)</BoulderTitle>
+          <BoulderSubtitle>Named by: Matt</BoulderSubtitle>
+          <PillContainer>
+            <Pill>Crimps</Pill>
+            <Pill>Heel hooks</Pill>
+            <Pill>Dyno</Pill>
+          </PillContainer>
+        </BoulderDescription>
+        <Section>
+          <SectionTitle>Boulder Stats</SectionTitle>
+          <StatSubSection>
+            <StatCard>
+              <StatCardTitle>Completion</StatCardTitle>
+              <StatCardValue>89%</StatCardValue>
+            </StatCard>
+            <StatCard>
+              <StatCardTitle>Avg Attempts</StatCardTitle>
+              <StatCardValue>13</StatCardValue>
+            </StatCard>
+            <StatCard>
+              <StatCardTitle>Elo</StatCardTitle>
+              <StatCardValue>3124.2</StatCardValue>
+            </StatCard>
+          </StatSubSection>
+        </Section>
+        <Section>
+          <SectionTitle>Recorded Sends</SectionTitle>
+          <FlexSubSection>
             <Link to="/user">
-              <div className="SendPill">
-                <div className="SendPill__Image">
+              <SendPill>
+                <SendPillImage>
                   <img src="/sarah.png" alt="tmp" />
-                </div>
-                <span>Sarah Olijar</span>
-              </div>
+                </SendPillImage>
+                <SendPillName>Sarah Olijar</SendPillName>
+              </SendPill>
             </Link>
             <Link to="/user">
-              <div className="SendPill">
-                <div className="SendPill__Image">
+              <SendPill>
+                <SendPillImage>
                   <img src="/trevor.jpg" alt="tmp" />
-                </div>
-                <span>Trevor Frey</span>
-              </div>
+                </SendPillImage>
+                <SendPillName>Trevor Frey</SendPillName>
+              </SendPill>
             </Link>
             <Link to="/user">
-              <div className="SendPill">
-                <div className="SendPill__Image">
-                  <img src="/aron.jpg" alt="tmp" />
-                </div>
-                <span>Aron Korenblit</span>
-              </div>
-            </Link>
-            <Link to="/user">
-              <div className="SendPill">
-                <div className="SendPill__Image">
+              <SendPill>
+                <SendPillImage>
                   <img src="/matt.jpg" alt="tmp" />
-                </div>
-                <span>Matt White</span>
-              </div>
+                </SendPillImage>
+                <SendPillName>Matt White</SendPillName>
+              </SendPill>
             </Link>
-          </div>
-        </div>
-        <div className="Section">
+            <Link to="/user">
+              <SendPill>
+                <SendPillImage>
+                  <img src="/aron.jpg" alt="tmp" />
+                </SendPillImage>
+                <SendPillName>Aron Korenblit</SendPillName>
+              </SendPill>
+            </Link>
+          </FlexSubSection>
+        </Section>
+        <Section>
           <Buttons />
-        </div>
-      </div>
-    </div>
+        </Section>
+      </ContentDiv>
+    </BoulderPageDiv>
   );
 }
