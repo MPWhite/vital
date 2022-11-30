@@ -14,7 +14,7 @@ export class AuthService {
     return this.jwtService.decode(token);
   }
 
-  async Register(email: string, rawPassword: string) {
+  async login(email: string, rawPassword: string) {
     const maybeUser = await this.usersService.userByEmail(email);
     if (maybeUser && compareSync(rawPassword, maybeUser.hashedPassword)) {
       const { hashedPassword, ...user } = maybeUser;

@@ -18,16 +18,15 @@ export class BouldersService {
             displayName: true,
           },
         },
-        BoulderAttempt: {
+        BoulderCompletions: {
           include: {
             user: {
               select: {
+                id: true,
                 displayName: true,
+                profilePicUrl: true,
               },
             },
-          },
-          where: {
-            completed: true,
           },
         },
       },
@@ -43,12 +42,27 @@ export class BouldersService {
     });
   }
 
-  async recordAttempt(userId: number, boulderId: number, completed: boolean) {
+  async recordAttempt(userId: number, boulderId: number) {
     await this.prisma.boulderAttempt.create({
       data: {
         userId,
         boulderId,
-        completed,
+      },
+    });
+  }
+
+  // TODO(!) This is completely untested
+  async completeBoulder(userId: number, boulderId: number) {
+    await this.prisma.boulderCompletion.create({
+      data: {
+        userId,
+        boulderId,
+        attempts: await this.prisma.boulderAttempt.count({
+          where: {
+            userId,
+            boulderId,
+          },
+        }),
       },
     });
   }

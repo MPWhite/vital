@@ -55,26 +55,23 @@ class CreateBoulderDto {
 export class BouldersController {
   constructor(private readonly boulders: BouldersService) {}
 
-  @Get('/:boulderId')
-  @ApiParam({ name: 'boulderId', example: '1' })
-  getBoulder(@Param() param: { boulderId: string }) {
-    return this.boulders.getBoulder(parseInt(param.boulderId));
-  }
-
   @UseGuards(JwtAuthGuard)
   @Post('/attempt')
   @ApiBody({ type: RecordAttemptDto })
   recordAttempt(@Request() req, @Body() attempt: RecordAttemptDto) {
-    return this.boulders.recordAttempt(
-      req.user.id,
-      attempt.boulderId,
-      attempt.completed ?? false,
-    );
+    return this.boulders.recordAttempt(req.user.id, attempt.boulderId);
   }
 
-  @Get('/active')
+  @Get('/')
   getActiveBoulders() {
+    console.log('FINDME');
     return this.boulders.getActiveBoulders();
+  }
+
+  @Get('/:boulderId')
+  @ApiParam({ name: 'boulderId', example: '1' })
+  getBoulder(@Param() param: { boulderId: string }) {
+    return this.boulders.getBoulder(parseInt(param.boulderId));
   }
 
   @UseGuards(JwtAuthGuard)

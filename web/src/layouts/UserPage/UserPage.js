@@ -2,6 +2,9 @@
 import React from "react";
 import styled from "styled-components";
 import { TabbedSection } from "./TabbedSection";
+import { useParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
+import { fetchUser } from "./userApi";
 
 const UserPageWrapper = styled.div`
   background-color: black;
@@ -82,14 +85,27 @@ const ValueSpan = styled.span`
 `;
 
 export function UserPage() {
+  const { userId } = useParams();
+  const { data: userInfo, status } = useQuery(["user", userId], () =>
+    fetchUser(userId)
+  );
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (status === "error") {
+    return <div>Error</div>;
+  }
+
   return (
     <UserPageWrapper>
       <Header>
         <ProfPic>
-          <img src="/sarah.png" alt="alt" />
+          <img src={userInfo.profilePicUrl} alt="alt" />
         </ProfPic>
         <HeaderInfo>
-          <NameSpan>Sarah Olijar</NameSpan>
+          <NameSpan>{userInfo.displayName}</NameSpan>
           <UserStats>
             <Stat>
               <TitleSpan>MAX</TitleSpan>
@@ -97,7 +113,7 @@ export function UserPage() {
             </Stat>
             <Stat>
               <TitleSpan>SENDS</TitleSpan>
-              <ValueSpan>312</ValueSpan>
+              {/*<ValueSpan>{userInfo.BoulderAttempt.length}</ValueSpan>*/}
             </Stat>
             <Stat>
               <TitleSpan>RANK</TitleSpan>
@@ -106,7 +122,7 @@ export function UserPage() {
           </UserStats>
         </HeaderInfo>
       </Header>
-      <TabbedSection />
+      <TabbedSection userId={userId} />
     </UserPageWrapper>
   );
 }

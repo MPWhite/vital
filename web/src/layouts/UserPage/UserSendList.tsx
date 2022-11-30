@@ -6,6 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt } from "@fortawesome/free-solid-svg-icons";
 import { SendListSortBy } from "./SendListSortBy";
 import { Link } from "react-router-dom";
+import { useQuery, useHydrate } from "@tanstack/react-query";
+import { fetchUser } from "./userApi";
+import { UserResponse } from "@backend/users.types";
 
 TimeAgo.addDefaultLocale(en);
 // Create formatter (English).
@@ -70,96 +73,6 @@ const FlashChip = styled.span`
   }
 `;
 
-// random time in the last week
-function randomDate() {
-  return new Date(
-    new Date().getTime() - Math.random() * 1000 * 60 * 60 * 24 * 4
-  ).toISOString();
-}
-
-// random number between 1 and 10
-function randNumber() {
-  return Math.floor(Math.random() * 4) + 1;
-}
-
-const data: Array<{
-  boulderName: string;
-  rating: string;
-  time: string;
-  attempts: number;
-}> = [
-  {
-    boulderName: "Off The Wagon",
-    rating: "orange",
-    time: randomDate(),
-    attempts: randNumber(),
-  },
-  {
-    boulderName: "Megatron",
-    rating: "yellow",
-    time: randomDate(),
-    attempts: randNumber(),
-  },
-  {
-    boulderName: "Alphane",
-    rating: "red",
-    time: randomDate(),
-    attempts: randNumber(),
-  },
-  {
-    boulderName: "Silence",
-    rating: "orange",
-    time: randomDate(),
-    attempts: randNumber(),
-  },
-  {
-    boulderName: "Midnight Lightning",
-    rating: "orange",
-    time: randomDate(),
-    attempts: randNumber(),
-  },
-  {
-    boulderName: "Burden of Dreams",
-    rating: "red",
-    time: randomDate(),
-    attempts: randNumber(),
-  },
-  {
-    boulderName: "Rainbow Rocket",
-    rating: "purple",
-    time: randomDate(),
-    attempts: randNumber(),
-  },
-  {
-    boulderName: "The Thimble",
-    rating: "orange",
-    time: randomDate(),
-    attempts: randNumber(),
-  },
-  {
-    boulderName: "La Dura Dura",
-    rating: "yellow",
-    time: randomDate(),
-    attempts: randNumber(),
-  },
-  {
-    boulderName: "DNA",
-    rating: "orange",
-    time: randomDate(),
-    attempts: randNumber(),
-  },
-  {
-    boulderName: "Sleepwalker (Sit start)",
-    rating: "orange",
-    time: randomDate(),
-    attempts: randNumber(),
-  },
-];
-// Sort by time
-data.sort((a, b) => {
-  return new Date(b.time).getTime() - new Date(a.time).getTime();
-});
-
 function SendListItem({
   boulderNane,
   rating,
@@ -175,7 +88,7 @@ function SendListItem({
     <SendItem>
       <SendRating rating={rating} />
       <SendItemTitle>{boulderNane}</SendItemTitle>
-      {attempts === 1 && (
+      {attempts === 0 && (
         <FlashChip>
           <FontAwesomeIcon icon={faBolt} />
           Flash
@@ -186,18 +99,31 @@ function SendListItem({
   );
 }
 
-export function UserSendList() {
+export function UserSendList({ userId }: { userId: string }) {
+  const { data: userInfo, status } = useQuery<UserResponse>(
+    ["user", userId],
+    () => fetchUser(userId)
+  );
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (status === "error") {
+    return <div>Error</div>;
+  }
+
   return (
     <>
       <SendListSortBy />
-      {data.map((item) => {
+      {userInfo.completedBoulderDescriptions.map((boulderDesc) => {
         return (
           <Link to="/boulder">
             <SendListItem
-              boulderNane={item.boulderName}
-              rating={item.rating}
-              time={item.time}
-              attempts={item.attempts}
+              boulderNane={boulderDesc.name}
+              rating={boulderDesc.rating}
+              time={boulderDesc.completionTime.toString()}
+              attempts={boulderDesc.attempts}
             />
           </Link>
         );

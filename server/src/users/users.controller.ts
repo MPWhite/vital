@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
+import { UserResponse } from '../sharedTypes/users.types';
 
 @Controller('users')
 @ApiTags('users')
@@ -15,11 +16,10 @@ export class UsersController {
   constructor(private readonly users: UsersService) {}
 
   @Get('/:id')
-  async getUserById(@Param('id') id: string) {
+  async getUserById(@Param('id') id: string): Promise<UserResponse> {
     const maybeUser = await this.users.userWithCompletedBouldersById(
       parseInt(id),
     );
-    console.log('FINDME', maybeUser);
     if (!maybeUser) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }

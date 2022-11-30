@@ -51,7 +51,7 @@ enum TabTypes {
   STATS = "stats",
 }
 
-export function TabbedSection() {
+export function TabbedSection({ userId }: { userId: string }) {
   const [activeTab, setActiveTab] = React.useState(TabTypes.SENDS);
   return (
     <TabbedWrapper>
@@ -67,7 +67,7 @@ export function TabbedSection() {
         </TabbedNavItem>
       </TabbedNav>
       <Tab name="sends" active={activeTab === TabTypes.SENDS}>
-        <UserSendList />
+        <UserSendList userId={userId} />
       </Tab>
       <Tab name="sends" active={activeTab === TabTypes.STATS}></Tab>
     </TabbedWrapper>

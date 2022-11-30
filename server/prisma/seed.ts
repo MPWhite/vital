@@ -7,7 +7,8 @@ const testUsers: Array<User> = [
   {
     id: 1,
     email: 'mattp.white95+test-user-1@gmail.com',
-    displayName: 'Test User 1',
+    displayName: 'Sarah Olijar',
+    profilePicUrl: 'https://dl05ydgjha0pz.cloudfront.net/sarah.png',
     hashedPassword:
       '$2b$10$.UKh8XierZouL3w.xmICje0mV3KQrngd9QUgsZ8ctyPVvITqDuBYu',
     createdAt: new Date(),
@@ -15,7 +16,8 @@ const testUsers: Array<User> = [
   {
     id: 2,
     email: 'mattp.white95+test-user-2@gmail.com',
-    displayName: 'Test User 2',
+    displayName: 'Matt White',
+    profilePicUrl: 'https://dl05ydgjha0pz.cloudfront.net/matt.jpg',
     hashedPassword:
       '$2b$10$.UKh8XierZouL3w.xmICje0mV3KQrngd9QUgsZ8ctyPVvITqDuBYu',
     createdAt: new Date(),
@@ -25,7 +27,7 @@ const testUsers: Array<User> = [
 const testBoulders: Array<Boulder> = [
   {
     id: 1,
-    name: 'Test Boulder 1',
+    name: 'Sleepwalker (Sit start)',
     rating: 'RED',
     xLocation: 10.1,
     yLocation: 10.1,
@@ -33,6 +35,52 @@ const testBoulders: Array<Boulder> = [
     namedById: null,
     active: true,
     removedAt: null,
+    createdAt: new Date(),
+  },
+  {
+    id: 2,
+    name: 'Burden of hoop dreams',
+    rating: 'ORANGE',
+    xLocation: 10.1,
+    yLocation: 10.1,
+    addedById: 1,
+    namedById: null,
+    active: true,
+    removedAt: null,
+    createdAt: new Date(),
+  },
+  {
+    id: 3,
+    name: 'La Dura Dura',
+    rating: 'YELLOW',
+    xLocation: 10.1,
+    yLocation: 10.1,
+    addedById: 1,
+    namedById: null,
+    active: true,
+    removedAt: null,
+    createdAt: new Date(),
+  },
+  {
+    id: 4,
+    name: 'Alphane',
+    rating: 'PURPLE',
+    xLocation: 10.1,
+    yLocation: 10.1,
+    addedById: 1,
+    namedById: null,
+    active: true,
+    removedAt: null,
+    createdAt: new Date(),
+  },
+];
+
+const testBoulderCompletions = [
+  {
+    id: 1,
+    boulderId: 1,
+    userId: 1,
+    attempts: 0,
     createdAt: new Date(),
   },
 ];
@@ -58,6 +106,19 @@ async function main() {
       },
       create: {
         ...boulderData,
+      },
+    });
+  }
+
+  for (const boulderCompletion of testBoulderCompletions) {
+    const { id, ...boulderCompletionData } = boulderCompletion;
+    await prisma.boulderCompletion.upsert({
+      where: { id: boulderCompletion.id },
+      update: {
+        ...boulderCompletionData,
+      },
+      create: {
+        ...boulderCompletionData,
       },
     });
   }

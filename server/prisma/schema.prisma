@@ -11,14 +11,16 @@ datasource db {
 }
 
 model User {
-  id             Int              @id @default(autoincrement())
-  email          String           @unique
-  displayName    String           @unique
-  hashedPassword String
-  createdAt      DateTime         @default(now())
-  BouldersAdded  Boulder[]        @relation("addedBy")
-  BouldersNamed  Boulder[]        @relation("namedBy")
-  BoulderAttempt BoulderAttempt[]
+  id                 Int                 @id @default(autoincrement())
+  email              String              @unique
+  displayName        String              @unique
+  profilePicUrl      String?
+  hashedPassword     String
+  createdAt          DateTime            @default(now())
+  BouldersAdded      Boulder[]           @relation("addedBy")
+  BouldersNamed      Boulder[]           @relation("namedBy")
+  BoulderAttempts    BoulderAttempt[]
+  BoulderCompletions BoulderCompletion[]
 }
 
 enum Rating {
@@ -32,19 +34,20 @@ enum Rating {
 }
 
 model Boulder {
-  id             Int              @id @default(autoincrement())
-  name           String           @unique
-  rating         Rating
-  xLocation      Float
-  yLocation      Float
-  addedBy        User             @relation(fields: [addedById], references: [id], name: "addedBy")
-  addedById      Int
-  namedBy        User?            @relation(fields: [namedById], references: [id], name: "namedBy")
-  namedById      Int?
-  active         Boolean          @default(true)
-  removedAt      DateTime?
-  createdAt      DateTime         @default(now())
-  BoulderAttempt BoulderAttempt[]
+  id                 Int                 @id @default(autoincrement())
+  name               String              @unique
+  rating             Rating
+  xLocation          Float
+  yLocation          Float
+  addedBy            User                @relation(fields: [addedById], references: [id], name: "addedBy")
+  addedById          Int
+  namedBy            User?               @relation(fields: [namedById], references: [id], name: "namedBy")
+  namedById          Int?
+  active             Boolean             @default(true)
+  removedAt          DateTime?
+  createdAt          DateTime            @default(now())
+  BoulderAttempts    BoulderAttempt[]
+  BoulderCompletions BoulderCompletion[]
 }
 
 model BoulderAttempt {
@@ -53,6 +56,15 @@ model BoulderAttempt {
   boulderId Int
   user      User     @relation(fields: [userId], references: [id])
   userId    Int
-  completed Boolean
+  createdAt DateTime @default(now())
+}
+
+model BoulderCompletion {
+  id        Int      @id @default(autoincrement())
+  boulder   Boulder  @relation(fields: [boulderId], references: [id])
+  boulderId Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  attempts  Int
   createdAt DateTime @default(now())
 }
