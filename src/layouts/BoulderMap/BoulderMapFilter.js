@@ -1,16 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faLocationDot,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 
 const ExpandedFilterDiv = styled.div`
   position: fixed;
   background-color: #222;
-  transition-property: height;
+  transition-property: bottom;
   transition-duration: 0.2s;
-  transition-timing-function: ease-in-out;
-  bottom: 0;
-  height: ${(props) => (props.expanded ? "fit" : "0px")};
-  display: ${(props) => (props.expanded ? "block" : "none")};
-  z-index: 100;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  bottom: ${(props) => (props.expanded ? "0" : "calc(-100% + 60px)")};
+  z-index: 0;
   padding: 20px;
 `;
 
@@ -81,6 +84,14 @@ const LocationPill = styled.div`
   margin-right: 5px;
   border-radius: 20px;
   background-color: ${(props) => (props.selected ? "#444" : "#222")};
+  width: fit-content;
+  white-space: nowrap;
+
+  svg {
+    color: white;
+    margin-right: 10px;
+  }
+
   span {
     color: white;
     line-height: 30px;
@@ -93,6 +104,7 @@ const LocationPill = styled.div`
 function LocationPillComponent({ locationName, selected, onClick }) {
   return (
     <LocationPill selected={selected} onClick={onClick}>
+      <FontAwesomeIcon icon={faLocationDot} />
       <span>{locationName}</span>
     </LocationPill>
   );
@@ -130,24 +142,32 @@ const ApplyButtonFilter = styled.button`
 `;
 
 const CollapsedFilterDiv = styled.div`
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 50px;
   background-color: #222;
-  padding: 10px;
-  display: ${(props) => (props.expanded ? "none" : "block")};
+  display: ${(props) => (props.expanded ? "none" : "flex")};
+  z-index: 100;
 `;
 
 const CollapsedFilterSection = styled.div`
-  padding-top: 5px;
   display: flex;
   overflow: scroll;
+  margin-top: 6.5px;
+  margin-left: 10px;
 `;
 
 const CollapsedFilterTitle = styled.span`
-  font-weight: bold;
   color: white;
+  line-height: 53px;
+  font-size: 24px;
+  padding: 0 10px;
+  border-right: 1px solid #333;
 `;
 
 export function BoulderMapFilter() {
-  const [expanded, setExpanded] = React.useState(true);
+  const [expanded, setExpanded] = React.useState(false);
   const [selectedRatings, setSelectedRatings] = React.useState(["green"]);
   const [selectedLocations, setSelectedLocations] = React.useState(["Cave"]);
 
@@ -160,7 +180,9 @@ export function BoulderMapFilter() {
           setExpanded(!expanded);
         }}
       >
-        <CollapsedFilterTitle>Current Filters</CollapsedFilterTitle>
+        <CollapsedFilterTitle>
+          <FontAwesomeIcon icon={faMagnifyingGlass} />
+        </CollapsedFilterTitle>
         <CollapsedFilterSection>
           {selectedRatings.map((rating) => (
             <RatingPillComponent

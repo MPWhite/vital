@@ -29,8 +29,6 @@ const useOnScreen = (ref) => {
   return isIntersecting;
 };
 
-const CarouselWrapper = styled.div``;
-
 const CardCarousel = ({ activePinId, setActivePinId }) => {
   const numChildren = mockData.length;
   const ref = useRef();
@@ -58,7 +56,7 @@ const CardCarousel = ({ activePinId, setActivePinId }) => {
   };
 
   return (
-    <CarouselWrapper>
+    <>
       <div
         ref={ref}
         className="CarouselWrapper"
@@ -66,7 +64,7 @@ const CardCarousel = ({ activePinId, setActivePinId }) => {
       >
         {childrenCards}
       </div>
-    </CarouselWrapper>
+    </>
   );
 };
 
