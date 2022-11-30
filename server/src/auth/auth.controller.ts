@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
 import { ApiBody, ApiProperty, ApiTags } from '@nestjs/swagger';
 
-class UserLoginDto {
+class UserRegisterDto {
   @ApiProperty({ example: 'mattp.white95+test-user-1@gmail.com' })
   email: string;
 
@@ -17,9 +17,12 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @UseGuards(LocalAuthGuard)
-  @ApiBody({ type: UserLoginDto })
-  @Post('/login')
-  async login(@Body() userLoginDto: UserLoginDto) {
-    return this.authService.login(userLoginDto.email, userLoginDto.password);
+  @ApiBody({ type: UserRegisterDto })
+  @Post('/Register')
+  async Register(@Body() userRegisterDto: UserRegisterDto) {
+    return this.authService.Register(
+      userRegisterDto.email,
+      userRegisterDto.password,
+    );
   }
 }

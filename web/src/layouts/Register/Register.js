@@ -1,91 +1,96 @@
-import React, { Component } from "react";
-import "../Login/Auth.scss";
-import { DropdownList } from "react-widgets";
-import "react-widgets/dist/css/react-widgets.css";
-import ErrorBar from "../../components/ErrorBar";
+import React from "react";
+import styled from "styled-components";
+import { Formik, Field, Form } from "formik";
 
-const required = (value) => (value ? undefined : "Required");
+const BoulderUploadWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
+`;
 
-const renderDropdownList = ({ input, data, valueField, textField }) => (
-  <DropdownList
-    {...input}
-    className="TimeZoneDropdown"
-    data={data}
-    valueField={valueField}
-    textField={textField}
-    onChange={input.onChange}
-  />
-);
+const Title = styled.span`
+  font-weight: bold;
+  font-size: 28px;
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+`;
 
-class Register extends Component {
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const { registerUser, values } = this.props;
-    if (values && values.email && values.password && values.signup_token) {
-      registerUser(values.email, values.password, values.signup_token);
-    }
-  };
+const Subtitle = styled.span`
+  font-size: 14px;
+  color: #aaa;
+  text-align: center;
+  margin-bottom: 20px;
+`;
 
-  render() {
-    const { submitting, pristine, invalid } = this.props;
-    return (
-      <div className="AuthPage">
-        <ErrorBar />
-        <div className="AuthForm">
-          <div className="AuthForm__header">
-            <img
-              className="AuthFrom__icon"
-              src="https://uploads-ssl.webflow.com/5fe114d1a2723851f578ebb9/6024050efd63c5f9fd979774_dcp_logo_versions-02.png"
-            />
-            <h1>DCP Vision</h1>
-          </div>
-          <p>Register for an account</p>
-          <form className="AuthForm__form" onSubmit={this.handleSubmit}>
-            <div className="AuthForm__field">
-              <label className="AuthForm__label" htmlFor="email">
-                Email
-              </label>
-              {/*TODO*/}
-              {/*<Field name="email" component="input" />*/}
-            </div>
-            <div className="AuthForm__field">
-              <label className="AuthForm__label" htmlFor="password">
-                Password
-              </label>
-              {/*TODO*/}
-              {/*<Field*/}
-              {/*  name="password"*/}
-              {/*  component="input"*/}
-              {/*  type="password"*/}
-              {/*  validate={[required]}*/}
-              {/*/>*/}
-            </div>
-            <div className="AuthForm__field">
-              <label className="AuthForm__label" htmlFor="name">
-                Signup Token
-              </label>
-              {/*TODO*/}
-              {/*<Field*/}
-              {/*  name="signup_token"*/}
-              {/*  component="input"*/}
-              {/*  type="text"*/}
-              {/*  validate={[required]}*/}
-              {/*/>*/}
-            </div>
-            <div className="AuthForm__buttons">
-              <button
-                id="login"
-                type="submit"
-                disabled={submitting || pristine || invalid}
-              >
-                Register
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    );
-  }
+const RegisterInput = styled.input`
+  width: 100%;
+  height: 60px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  background-color: #222;
+  color: white;
+  border: none;
+  padding: 0 20px;
+  font-size: 14px;
+`;
+
+const RegisterButton = styled.button`
+  width: 100%;
+  height: 60px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  box-sizing: border-box;
+  background: linear-gradient(-45deg, #0072ff, #00c6ff);
+
+  color: white;
+`;
+
+const RegisterForm = styled.div`
+  padding: 20px;
+`;
+
+export function Register() {
+  return (
+    <BoulderUploadWrapper>
+      <Title>Create new account</Title>
+      <Subtitle>Please fill in the form to continue</Subtitle>
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        onSubmit={async (values) => {
+          await new Promise((resolve) => setTimeout(resolve, 500));
+          alert(JSON.stringify(values, null, 2));
+        }}
+      >
+        <RegisterForm>
+          {/*<RegisterEmail name="name" type="text" />*/}
+          <Field
+            name="email"
+            type="email"
+            placeholder="Email address"
+            as={RegisterInput}
+          />
+          <Field
+            name="password"
+            type="password"
+            placeholder="Password"
+            as={RegisterInput}
+          />
+          <Field
+            name="password"
+            type="password"
+            placeholder="Confirm password"
+            as={RegisterInput}
+          />
+          <RegisterButton type="submit">Register</RegisterButton>
+        </RegisterForm>
+      </Formik>
+      <Subtitle>Already have an account? Login</Subtitle>
+    </BoulderUploadWrapper>
+  );
 }
 
 export default Register;
