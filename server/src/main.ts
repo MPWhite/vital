@@ -11,6 +11,7 @@ async function bootstrap() {
     .setTitle('Vital Beta Swagger')
     .setDescription('Vital Beta API Description')
     .setVersion('0.1')
+    .addBearerAuth()
     .build()
 
   const document = SwaggerModule.createDocument(app, config)
