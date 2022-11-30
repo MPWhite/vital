@@ -2,6 +2,7 @@ import React from "react";
 import "./BoulderPage.scss";
 import classnames from "classnames";
 import Confetti from "react-dom-confetti";
+import { Link } from "react-router-dom";
 
 function ImageGallery() {
   return (
@@ -104,30 +105,38 @@ export function BoulderPage() {
         <div className="Section">
           <span className="Section__Title">Recorded Sends</span>
           <div className="Section__FlexSubsection">
-            <div className="SendPill">
-              <div className="SendPill__Image">
-                <img src="/sarah.png" alt="tmp" />
+            <Link to="/user">
+              <div className="SendPill">
+                <div className="SendPill__Image">
+                  <img src="/sarah.png" alt="tmp" />
+                </div>
+                <span>Sarah Olijar</span>
               </div>
-              <span>Sarah Olijar</span>
-            </div>
-            <div className="SendPill">
-              <div className="SendPill__Image">
-                <img src="/trevor.jpg" alt="tmp" />
+            </Link>
+            <Link to="/user">
+              <div className="SendPill">
+                <div className="SendPill__Image">
+                  <img src="/trevor.jpg" alt="tmp" />
+                </div>
+                <span>Trevor Frey</span>
               </div>
-              <span>Trevor Frey</span>
-            </div>
-            <div className="SendPill">
-              <div className="SendPill__Image">
-                <img src="/aron.jpg" alt="tmp" />
+            </Link>
+            <Link to="/user">
+              <div className="SendPill">
+                <div className="SendPill__Image">
+                  <img src="/aron.jpg" alt="tmp" />
+                </div>
+                <span>Aron Korenblit</span>
               </div>
-              <span>Aron Korenblit</span>
-            </div>
-            <div className="SendPill">
-              <div className="SendPill__Image">
-                <img src="/matt.jpg" alt="tmp" />
+            </Link>
+            <Link to="/user">
+              <div className="SendPill">
+                <div className="SendPill__Image">
+                  <img src="/matt.jpg" alt="tmp" />
+                </div>
+                <span>Matt White</span>
               </div>
-              <span>Matt White</span>
-            </div>
+            </Link>
           </div>
         </div>
         <div className="Section">

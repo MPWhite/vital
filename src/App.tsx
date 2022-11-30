@@ -4,14 +4,17 @@ import { BoulderPage } from "./layouts/BoulderPage/BoulderPage";
 import { UserPage } from "./layouts/UserPage/UserPage";
 import styled from "styled-components";
 import BoulderMap from "./layouts/BoulderMap/BoulderMap";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      {/*<BoulderPage />*/}
-      {/*<UserPage />*/}
-      <BoulderMap />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path={"/"} element={<BoulderMap />} />
+        <Route path={"/boulder"} element={<BoulderPage />} />
+        <Route path={"/user"} element={<UserPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

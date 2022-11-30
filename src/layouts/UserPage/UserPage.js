@@ -9,7 +9,7 @@ const UserPageWrapper = styled.div`
 `;
 
 const Header = styled.div`
-  padding: 10px;
+  padding: 5px;
 `;
 
 const ProfPic = styled.div`
@@ -44,6 +44,7 @@ const ProfPic = styled.div`
 const HeaderInfo = styled.div`
   text-align: center;
   margin-top: 10px;
+  margin-bottom: 10px;
 `;
 
 const NameSpan = styled.span`
@@ -54,7 +55,7 @@ const NameSpan = styled.span`
 
 const UserStats = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-top: 15px;
 `;
 
@@ -65,7 +66,7 @@ const Stat = styled.div`
   color: white;
   padding: 10px;
   border-radius: 15px;
-  width: 22%;
+  width: 25%;
 `;
 
 const TitleSpan = styled.span`
