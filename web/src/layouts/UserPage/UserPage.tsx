@@ -5,6 +5,7 @@ import { TabbedSection } from "./TabbedSection";
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { fetchUser } from "./userApi";
+import { UserResponse } from "@backend/users.types";
 
 const UserPageWrapper = styled.div`
   background-color: black;
@@ -86,17 +87,26 @@ const ValueSpan = styled.span`
 
 export function UserPage() {
   const { userId } = useParams();
-  const { data: userInfo, status } = useQuery(["user", userId], () =>
-    fetchUser(userId)
+
+  const { data: userInfo, status } = useQuery<UserResponse>(
+    ["user", userId],
+    () => fetchUser(userId || "1")
   );
 
   if (status === "loading") {
     return <div>Loading...</div>;
   }
-
   if (status === "error") {
     return <div>Error</div>;
   }
+
+  // Sort completeBoulders by time -- this will need to eventually be configurable
+  userInfo?.completedBoulderDescriptions.sort((a, b) => {
+    return (
+      new Date(b.completionTime).getTime() -
+      new Date(a.completionTime).getTime()
+    );
+  });
 
   return (
     <UserPageWrapper>
@@ -113,7 +123,9 @@ export function UserPage() {
             </Stat>
             <Stat>
               <TitleSpan>SENDS</TitleSpan>
-              {/*<ValueSpan>{userInfo.BoulderAttempt.length}</ValueSpan>*/}
+              <ValueSpan>
+                {userInfo.completedBoulderDescriptions.length}
+              </ValueSpan>
             </Stat>
             <Stat>
               <TitleSpan>RANK</TitleSpan>
