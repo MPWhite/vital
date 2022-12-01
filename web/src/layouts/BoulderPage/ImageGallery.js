@@ -23,11 +23,11 @@ const ImageGalleryDiv = styled.div`
   }
 `;
 
-export function ImageGallery() {
+export function ImageGallery({ primaryPhotoUrl }) {
   return (
     <ImageGalleryDiv>
       <div>
-        <img src="/boulder-image-1.png" alt="tmp" />
+        <img src={primaryPhotoUrl} alt="tmp" />
       </div>
       <div>
         <video src="/climb.mp4" controls />

@@ -1,5 +1,4 @@
 import { PrismaClient, User, Boulder, Rating } from '@prisma/client';
-import { Decimal } from '@prisma/client/runtime';
 
 const prisma = new PrismaClient();
 

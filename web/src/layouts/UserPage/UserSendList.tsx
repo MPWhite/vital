@@ -118,7 +118,7 @@ export function UserSendList({ userId }: { userId: string }) {
       <SendListSortBy />
       {userInfo.completedBoulderDescriptions.map((boulderDesc) => {
         return (
-          <Link to="/boulder">
+          <Link to={`/boulder/${boulderDesc.id}`}>
             <SendListItem
               boulderNane={boulderDesc.name}
               rating={boulderDesc.rating}

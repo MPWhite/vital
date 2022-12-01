@@ -17,7 +17,8 @@ import {
 } from '@nestjs/swagger';
 import { IsEnum, IsNotEmpty } from 'class-validator';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { Rating } from '@prisma/client';
+import { Boulder, Rating } from '@prisma/client';
+import { BoulderResponse } from '../sharedTypes/boulders.types';
 
 class SetBoulderNameDto {
   @IsNotEmpty()
@@ -71,7 +72,7 @@ export class BouldersController {
 
   @Get('/:boulderId')
   @ApiParam({ name: 'boulderId', example: '1' })
-  getBoulder(@Param() param: { boulderId: string }) {
+  getBoulder(@Param() param: { boulderId: string }): Promise<BoulderResponse> {
     return this.boulders.getBoulder(parseInt(param.boulderId));
   }
 

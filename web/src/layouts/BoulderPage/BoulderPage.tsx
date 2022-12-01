@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import { ImageGallery } from "./ImageGallery";
 import { Buttons } from "./Buttons";
 import styled from "styled-components";
+import { fetchBoulder } from "./bouldersApi";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router";
+import { BoulderResponse } from "@backend/boulders.types";
 
 const BoulderPageDiv = styled.div`
   width: 100vw;
@@ -124,7 +128,7 @@ const StatCardValue = styled.span`
   color: #eee;
 `;
 
-function StatCardComponent({ title, value }) {
+function StatCardComponent({ title, value }: { title: string; value: string }) {
   return (
     <StatCard>
       <StatCardTitle>{title}</StatCardTitle>
@@ -133,12 +137,20 @@ function StatCardComponent({ title, value }) {
   );
 }
 
-function SendPillComponent({ name, image }) {
+function SendPillComponent({
+  userId,
+  name,
+  imageUrl,
+}: {
+  userId: string;
+  name: string;
+  imageUrl: string;
+}) {
   return (
-    <Link to={`/user`}>
+    <Link to={`/user/${userId}`}>
       <SendPill>
         <SendPillImage>
-          <img src={image} alt="ALT" />
+          <img src={imageUrl} alt="ALT" />
         </SendPillImage>
         <SendPillName>{name}</SendPillName>
       </SendPill>
@@ -147,12 +159,23 @@ function SendPillComponent({ name, image }) {
 }
 
 export function BoulderPage() {
+  const { boulderId } = useParams<{ boulderId: string }>();
+  const { data: boulder, status } = useQuery<BoulderResponse>(
+    ["boulder", boulderId],
+    () => fetchBoulder(boulderId || "1")
+  );
+
+  console.log(boulder);
+  if (!boulder) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <BoulderPageDiv>
-      <ImageGallery />
+      <ImageGallery primaryPhotoUrl={boulder.primaryPhotoUrl} />
       <ContentDiv>
         <BoulderDescription>
-          <BoulderTitle>Megatron (but harder)</BoulderTitle>
+          <BoulderTitle>{boulder.name}</BoulderTitle>
           <BoulderSubtitle>Named by: Matt</BoulderSubtitle>
           <PillContainer>
             <Pill>Crimps</Pill>
@@ -160,21 +183,24 @@ export function BoulderPage() {
             <Pill>Dyno</Pill>
           </PillContainer>
         </BoulderDescription>
-        {/*<Section>*/}
-        {/*  <SectionTitle>Boulder Stats</SectionTitle>*/}
-        {/*  <StatSubSection>*/}
-        {/*    <StatCardComponent title="Completion" value="89%" />*/}
-        {/*    <StatCardComponent title="Avg Attempts" value="13" />*/}
-        {/*    <StatCardComponent title="Elo" value="1323.3" />*/}
-        {/*  </StatSubSection>*/}
-        {/*</Section>*/}
+        <Section>
+          <SectionTitle>Boulder Stats</SectionTitle>
+          <StatSubSection>
+            <StatCardComponent title="Completion" value="89%" />
+            <StatCardComponent title="Avg Attempts" value="13" />
+            <StatCardComponent title="Elo" value="1323.3" />
+          </StatSubSection>
+        </Section>
         <Section>
           <SectionTitle>Recorded Sends</SectionTitle>
           <FlexSubSection>
-            <SendPillComponent name="Sarah Olijar" image="/sarah.png" />
-            <SendPillComponent name="Trevor Frey" image="/trevor.jpg" />
-            <SendPillComponent name="Matt White" image="/matt.jpg" />
-            <SendPillComponent name="Aron Korenblit" image="/aron.jpg" />
+            {boulder.sends.map((send) => (
+              <SendPillComponent
+                userId={send.userId}
+                name={send.userName}
+                imageUrl={send.userProfilePicUrl}
+              />
+            ))}
           </FlexSubSection>
         </Section>
         <Section>

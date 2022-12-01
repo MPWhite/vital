@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { BoulderResponse } from '../sharedTypes/boulders.types';
 
 @Injectable()
 export class BouldersService {
   constructor(private prisma: PrismaService) {}
 
-  async getBoulder(boulderId: number) {
-    return this.prisma.boulder.findUnique({
+  async getBoulder(boulderId: number): Promise<BoulderResponse> {
+    const boulder = await this.prisma.boulder.findUnique({
       select: {
         id: true,
         name: true,
@@ -20,7 +21,7 @@ export class BouldersService {
           },
         },
         BoulderCompletions: {
-          include: {
+          select: {
             user: {
               select: {
                 id: true,
@@ -33,6 +34,24 @@ export class BouldersService {
       },
       where: { id: boulderId },
     });
+    if (!boulder) {
+      throw new Error('Boulder not found');
+    }
+
+    return {
+      id: boulder.id.toString(),
+      name: boulder.name,
+      primaryPhotoUrl: boulder.primaryPhotoUrl,
+      active: boulder.active,
+      xLocation: boulder.xLocation,
+      yLocation: boulder.yLocation,
+      namedBy: boulder?.namedBy?.displayName,
+      sends: boulder.BoulderCompletions.map((completion) => ({
+        userId: completion.user.id.toString(),
+        userProfilePicUrl: completion.user.profilePicUrl,
+        userName: completion.user.displayName,
+      })),
+    };
   }
 
   async getActiveBoulders() {

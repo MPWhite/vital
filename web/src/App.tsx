@@ -17,7 +17,7 @@ function App() {
         <Routes>
           <Route path={"/"} element={<BoulderMap />} />
           {/*<Route path={"/"} element={<BoulderUpload />} />*/}
-          <Route path={"/boulder"} element={<BoulderPage />} />
+          <Route path={"/boulder/:boulderId"} element={<BoulderPage />} />
           <Route path={"/user/:userId"} element={<UserPage />} />
           <Route path={"/login"} element={<Login />} />
           <Route path={"/register"} element={<Register />} />
