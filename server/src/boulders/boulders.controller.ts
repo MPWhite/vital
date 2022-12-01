@@ -66,7 +66,6 @@ export class BouldersController {
 
   @Get('/')
   getActiveBoulders() {
-    console.log('FINDME');
     return this.boulders.getActiveBoulders();
   }
 

@@ -28,6 +28,7 @@ const testBoulders: Array<Boulder> = [
   {
     id: 1,
     name: 'Sleepwalker (Sit start)',
+    primaryPhotoUrl: 'https://dl05ydgjha0pz.cloudfront.net/boulder-image-1.png',
     rating: 'RED',
     xLocation: 10.1,
     yLocation: 10.1,
@@ -40,6 +41,7 @@ const testBoulders: Array<Boulder> = [
   {
     id: 2,
     name: 'Burden of hoop dreams',
+    primaryPhotoUrl: 'https://dl05ydgjha0pz.cloudfront.net/boulder-image-2.jpg',
     rating: 'ORANGE',
     xLocation: 10.1,
     yLocation: 10.1,
@@ -52,6 +54,7 @@ const testBoulders: Array<Boulder> = [
   {
     id: 3,
     name: 'La Dura Dura',
+    primaryPhotoUrl: 'https://dl05ydgjha0pz.cloudfront.net/boulder-image-3.jpg',
     rating: 'YELLOW',
     xLocation: 10.1,
     yLocation: 10.1,
@@ -64,6 +67,7 @@ const testBoulders: Array<Boulder> = [
   {
     id: 4,
     name: 'Alphane',
+    primaryPhotoUrl: 'https://dl05ydgjha0pz.cloudfront.net/boulder-image-4.jpg',
     rating: 'PURPLE',
     xLocation: 10.1,
     yLocation: 10.1,

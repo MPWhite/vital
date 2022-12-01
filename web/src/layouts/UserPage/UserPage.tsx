@@ -93,6 +93,10 @@ export function UserPage() {
     () => fetchUser(userId || "1")
   );
 
+  if (!userId) {
+    return null;
+  }
+
   if (status === "loading") {
     return <div>Loading...</div>;
   }

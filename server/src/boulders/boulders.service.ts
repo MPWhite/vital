@@ -10,6 +10,7 @@ export class BouldersService {
       select: {
         id: true,
         name: true,
+        primaryPhotoUrl: true,
         active: true,
         xLocation: true,
         yLocation: true,
@@ -91,6 +92,7 @@ export class BouldersService {
     await this.prisma.boulder.create({
       data: {
         name,
+        primaryPhotoUrl: 'TODO',
         rating: 'RED',
         xLocation,
         yLocation,

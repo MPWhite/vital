@@ -21,6 +21,7 @@ model User {
   BouldersNamed      Boulder[]           @relation("namedBy")
   BoulderAttempts    BoulderAttempt[]
   BoulderCompletions BoulderCompletion[]
+  BoulderAsset       BoulderAsset[]
 }
 
 enum Rating {
@@ -36,6 +37,7 @@ enum Rating {
 model Boulder {
   id                 Int                 @id @default(autoincrement())
   name               String              @unique
+  primaryPhotoUrl    String
   rating             Rating
   xLocation          Float
   yLocation          Float
@@ -48,6 +50,23 @@ model Boulder {
   createdAt          DateTime            @default(now())
   BoulderAttempts    BoulderAttempt[]
   BoulderCompletions BoulderCompletion[]
+  BoulderAsset       BoulderAsset[]
+}
+
+enum AssetType {
+  PHOTO
+  VIDEO
+}
+
+model BoulderAsset {
+  id        Int       @id @default(autoincrement())
+  boulder   Boulder   @relation(fields: [boulderId], references: [id])
+  boulderId Int
+  type      AssetType
+  url       String
+  addedBy   User      @relation(fields: [addedById], references: [id])
+  addedById Int
+  createdAt DateTime  @default(now())
 }
 
 model BoulderAttempt {
