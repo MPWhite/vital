@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { BoulderResponse } from '../sharedTypes/boulders.types';
+import {
+  BoulderResponse,
+  BouldersResponse,
+} from '../sharedTypes/boulders.types';
 
 @Injectable()
 export class BouldersService {
@@ -54,12 +57,29 @@ export class BouldersService {
     };
   }
 
-  async getActiveBoulders() {
-    return this.prisma.boulder.findMany({
+  async getActiveBoulders(): Promise<BouldersResponse> {
+    const x = await this.prisma.boulder.findMany({
+      include: {
+        namedBy: {
+          select: {
+            displayName: true,
+          },
+        },
+      },
       where: {
         active: true,
       },
     });
+
+    return x.map((boulder) => ({
+      id: boulder.id.toString(),
+      name: boulder.name,
+      primaryPhotoUrl: boulder.primaryPhotoUrl,
+      rating: boulder.rating,
+      xLocation: boulder.xLocation,
+      yLocation: boulder.yLocation,
+      namedBy: boulder?.namedBy?.displayName,
+    }));
   }
 
   async recordAttempt(userId: number, boulderId: number) {

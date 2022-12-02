@@ -14,3 +14,15 @@ export type BoulderResponse = {
   namedBy?: string;
   sends: Array<BoulderSend>;
 };
+
+export type BoulderDescription = {
+  id: string;
+  name: string;
+  primaryPhotoUrl: string;
+  rating: string;
+  xLocation: number;
+  yLocation: number;
+  namedBy?: string;
+};
+
+export type BouldersResponse = Array<BoulderDescription>;

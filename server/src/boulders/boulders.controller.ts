@@ -18,7 +18,10 @@ import {
 import { IsEnum, IsNotEmpty } from 'class-validator';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Boulder, Rating } from '@prisma/client';
-import { BoulderResponse } from '../sharedTypes/boulders.types';
+import {
+  BoulderResponse,
+  BouldersResponse,
+} from '../sharedTypes/boulders.types';
 
 class SetBoulderNameDto {
   @IsNotEmpty()
@@ -66,7 +69,7 @@ export class BouldersController {
   }
 
   @Get('/')
-  getActiveBoulders() {
+  getActiveBoulders(): Promise<BouldersResponse> {
     return this.boulders.getActiveBoulders();
   }
 
