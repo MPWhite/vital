@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { BoulderMapFilter } from "./BoulderMapFilter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { fetchBoulders } from "./boulderMapApi";
+import { useQuery } from "@tanstack/react-query";
 
 const BoulderMapWrapper = styled.div`
   display: flex;
@@ -25,7 +27,6 @@ const SpacerDiv = styled.div`
 
 const CardCarouselWrapper = styled.div`
   width: 100vw;
-  padding-bottom: 60px;
 `;
 
 const DummyHeader = styled.div`
@@ -57,6 +58,15 @@ const DummyHeader = styled.div`
 
 export const BoulderMap = () => {
   const [activePinId, setActivePinId] = useState(1);
+  const { data: boulders, status } = useQuery(["boulders"], fetchBoulders);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+  if (status === "error") {
+    return <div>Error</div>;
+  }
+
   return (
     <>
       <DummyHeader>
@@ -66,12 +76,13 @@ export const BoulderMap = () => {
       <BoulderMapWrapper>
         <GymMapWrapper color={"yellow"}>
           <SpacerDiv />
-          <GymMap activePinId={activePinId} />
+          <GymMap activePinId={activePinId} boulders={boulders} />
         </GymMapWrapper>
         <CardCarouselWrapper>
           <CardCarousel
             activePinId={activePinId}
             setActivePinId={setActivePinId}
+            boulders={boulders}
           />
         </CardCarouselWrapper>
         <BoulderMapFilter />

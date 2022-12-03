@@ -39,14 +39,13 @@ const BoulderPageButtons = styled.div`
 
 const AttemptedButton = styled.button`
   display: ${(props) => (props.completed ? "none" : "block")};
-  background: linear-gradient(0deg, #0072ff, #00c6ff);
+  background-color: #0072ff;
 `;
 
 const CompletedButton = styled.button`
   position: absolute;
   left: ${(props) => (props.completed ? "10px" : "50%")};
-  background: ${(props) =>
-    props.completed ? "#239423" : "linear-gradient(0deg, #0072ff, #00c6ff)"};
+  background-color: ${(props) => (props.completed ? "#239423" : "#0072ff")};
   width: ${(props) =>
     props.completed ? "calc(100% - 20px)" : "48%"} !important;
 `;

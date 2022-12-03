@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const BoulderCardDiv = styled.div`
-  width: 200px;
+  width: 250px;
   background-color: #222;
   border-radius: 10px;
   box-sizing: border-box;
@@ -13,8 +13,9 @@ const BoulderCardDiv = styled.div`
 const BoulderCardImage = styled.div`
   position: relative;
   img {
+    height: 200px;
     width: 100%;
-    aspect-ratio: 1;
+    object-fit: cover;
     border-radius: 10px;
   }
 `;
@@ -27,7 +28,7 @@ const BoulderCardDescription = styled.div`
 
 const BoulderTitle = styled.span`
   font-weight: bolder;
-  font-size: 16px;
+  font-size: 12px;
   color: #eee;
 `;
 
@@ -56,7 +57,7 @@ const RatingMark = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: purple;
+  background-color: ${(props) => props.rating};
   top: 185px;
   right: 40px;
   border: 2px solid #222;
@@ -87,12 +88,19 @@ const HoldMark = styled.div`
   }
 `;
 
-const BoulderCard = ({ title, imgSrc, holdColor, ratingColor, active }) => {
+const BoulderCard = ({
+  boulderId,
+  title,
+  imgSrc,
+  holdColor,
+  rating,
+  active,
+}) => {
   return (
-    <Link to="/boulder">
+    <Link to={`/boulder/${boulderId}`}>
       <BoulderCardDiv active={active}>
         <BoulderCardImage>
-          <RatingMark />
+          <RatingMark rating={rating} />
           <HoldMark />
           <img src={imgSrc} alt="tmp" />
         </BoulderCardImage>
