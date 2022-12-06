@@ -1,3 +1,5 @@
+import * as cluster from 'cluster';
+
 export type BoulderSend = {
   userId: string;
   userProfilePicUrl: string;
@@ -13,6 +15,8 @@ export type BoulderResponse = {
   yLocation: number;
   namedBy?: string;
   sends: Array<BoulderSend>;
+  tags: Array<string>;
+  location: string;
 };
 
 export type BoulderDescription = {
@@ -23,6 +27,8 @@ export type BoulderDescription = {
   xLocation: number;
   yLocation: number;
   namedBy?: string;
+  tags: Array<string>;
+  location: string;
 };
 
 export type BouldersResponse = Array<BoulderDescription>;

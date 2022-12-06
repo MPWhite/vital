@@ -4,6 +4,7 @@ import {
   BoulderResponse,
   BouldersResponse,
 } from '../sharedTypes/boulders.types';
+import { Location } from '@prisma/client';
 
 @Injectable()
 export class BouldersService {
@@ -18,6 +19,7 @@ export class BouldersService {
         active: true,
         xLocation: true,
         yLocation: true,
+        location: true,
         namedBy: {
           select: {
             displayName: true,
@@ -32,6 +34,11 @@ export class BouldersService {
                 profilePicUrl: true,
               },
             },
+          },
+        },
+        Tags: {
+          select: {
+            tag: true,
           },
         },
       },
@@ -49,6 +56,8 @@ export class BouldersService {
       xLocation: boulder.xLocation,
       yLocation: boulder.yLocation,
       namedBy: boulder?.namedBy?.displayName,
+      tags: boulder.Tags.map((boulderTag) => String(boulderTag.tag.name)),
+      location: boulder.location,
       sends: boulder.BoulderCompletions.map((completion) => ({
         userId: completion.user.id.toString(),
         userProfilePicUrl: completion.user.profilePicUrl,
@@ -65,6 +74,11 @@ export class BouldersService {
             displayName: true,
           },
         },
+        Tags: {
+          select: {
+            tag: true,
+          },
+        },
       },
       where: {
         active: true,
@@ -79,6 +93,8 @@ export class BouldersService {
       xLocation: boulder.xLocation,
       yLocation: boulder.yLocation,
       namedBy: boulder?.namedBy?.displayName,
+      tags: boulder.Tags.map((boulderTag) => String(boulderTag.tag.name)),
+      location: boulder.location,
     }));
   }
 
@@ -136,6 +152,8 @@ export class BouldersService {
         xLocation,
         yLocation,
         addedById: userId,
+        holdColor: 'red',
+        location: Location.AMPHITHEATRE,
       },
     });
   }

@@ -1,4 +1,12 @@
-import { PrismaClient, User, Boulder, Rating, Location, Tag, BoulderTag } from '@prisma/client';
+import {
+  PrismaClient,
+  User,
+  Boulder,
+  Rating,
+  Location,
+  Tag,
+  BoulderTag,
+} from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -32,7 +40,7 @@ const testBoulders: Array<Boulder> = [
     holdColor: 'orange',
     location: Location.ALCOVE,
     xLocation: 60,
-    yLocation: 49,
+    yLocation: 42.5,
     addedById: 1,
     namedById: 1,
     active: true,
@@ -46,8 +54,8 @@ const testBoulders: Array<Boulder> = [
     rating: 'ORANGE',
     holdColor: 'blue',
     location: Location.TOPOUT,
-    xLocation: 50,
-    yLocation: 50,
+    xLocation: 80,
+    yLocation: 40,
     addedById: 1,
     namedById: 1,
     active: true,
@@ -61,8 +69,8 @@ const testBoulders: Array<Boulder> = [
     rating: 'YELLOW',
     holdColor: 'orange',
     location: Location.AMPHITHEATRE,
-    xLocation: 50,
-    yLocation: 50,
+    xLocation: 70,
+    yLocation: 60,
     addedById: 1,
     namedById: 2,
     active: true,
@@ -77,7 +85,7 @@ const testBoulders: Array<Boulder> = [
     holdColor: 'pink',
     location: Location.TOPOUT,
     xLocation: 75,
-    yLocation: 75,
+    yLocation: 35,
     addedById: 1,
     namedById: 1,
     active: true,
@@ -134,16 +142,53 @@ const testTags: Array<Tag> = [
   {
     id: 5,
     name: 'Tricky',
-  }
-]
+  },
+];
 
 const testBoulderTags: Array<BoulderTag> = [
   {
+    id: 1,
     boulderId: 1,
     tagId: 1,
     createdAt: new Date(),
-  }
-]
+  },
+  {
+    id: 2,
+    boulderId: 1,
+    tagId: 2,
+    createdAt: new Date(),
+  },
+  {
+    id: 3,
+    boulderId: 2,
+    tagId: 1,
+    createdAt: new Date(),
+  },
+  {
+    id: 4,
+    boulderId: 3,
+    tagId: 4,
+    createdAt: new Date(),
+  },
+  {
+    id: 5,
+    boulderId: 4,
+    tagId: 5,
+    createdAt: new Date(),
+  },
+  {
+    id: 6,
+    boulderId: 3,
+    tagId: 3,
+    createdAt: new Date(),
+  },
+  {
+    id: 7,
+    boulderId: 4,
+    tagId: 1,
+    createdAt: new Date(),
+  },
+];
 
 async function main() {
   for (const user of testUsers) {
@@ -179,6 +224,32 @@ async function main() {
       },
       create: {
         ...boulderCompletionData,
+      },
+    });
+  }
+
+  for (const tag of testTags) {
+    const { id, ...tagData } = tag;
+    await prisma.tag.upsert({
+      where: { id: tag.id },
+      update: {
+        ...tagData,
+      },
+      create: {
+        ...tagData,
+      },
+    });
+  }
+
+  for (const boulderTag of testBoulderTags) {
+    const { id, ...boulderTagData } = boulderTag;
+    await prisma.boulderTag.upsert({
+      where: { id: id },
+      update: {
+        ...boulderTagData,
+      },
+      create: {
+        ...boulderTagData,
       },
     });
   }

@@ -42,6 +42,7 @@ const CardCarousel = ({
           holdColor={"RED"}
           rating={b.rating}
           active={b.id === activePinId}
+          tags={b.tags}
         />
       </Card>
     );

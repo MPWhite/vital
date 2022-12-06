@@ -33,7 +33,7 @@ const SendRating = styled.div<any>`
 `;
 
 const SendItemTitle = styled.span`
-  font-weight: bold;
+  //font-weight: bold;
   font-size: 14px;
   color: #eee;
   line-height: ${SEND_ITEM_HEIGHT}px;

@@ -58,14 +58,14 @@ const RatingMark = styled.div`
   height: 20px;
   border-radius: 50%;
   background-color: ${(props) => props.rating};
-  top: 185px;
+  top: 187px;
   right: 40px;
   border: 2px solid #222;
 `;
 
 const HoldMark = styled.div`
   position: absolute;
-  top: 189px;
+  top: 191px;
   right: 12px;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
@@ -95,6 +95,7 @@ const BoulderCard = ({
   holdColor,
   rating,
   active,
+  tags,
 }) => {
   return (
     <Link to={`/boulder/${boulderId}`}>
@@ -108,9 +109,9 @@ const BoulderCard = ({
           <BoulderTitle>{title}</BoulderTitle>
           <BoulderSubtitle>Named by: Matt</BoulderSubtitle>
           <PillContainer>
-            <Pill>Crimps</Pill>
-            <Pill>Heel hooks</Pill>
-            <Pill>Dyno</Pill>
+            {tags.map((tag) => (
+              <Pill>{tag}</Pill>
+            ))}
           </PillContainer>
         </BoulderCardDescription>
       </BoulderCardDiv>

@@ -7,6 +7,7 @@ import BoulderMap from "./layouts/BoulderMap/BoulderMap";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Header } from "./components/Header/Header";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,9 @@ function App() {
           <Route path={"/user/:userId"} element={<UserPage />} />
           <Route path={"/login"} element={<Login />} />
           <Route path={"/register"} element={<Register />} />
+
+          {/*TEST*/}
+          <Route path={"/header"} element={<Header />} />
         </Routes>
       </BrowserRouter>
       {/*<ReactQueryDevtools />*/}

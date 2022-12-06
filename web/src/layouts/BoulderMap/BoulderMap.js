@@ -59,6 +59,23 @@ const DummyHeader = styled.div`
 export const BoulderMap = () => {
   const [activePinId, setActivePinId] = useState(1);
   const { data: boulders, status } = useQuery(["boulders"], fetchBoulders);
+  const [selectedRatings, setSelectedRatings] = React.useState([]);
+  const [selectedLocations, setSelectedLocations] = React.useState([]);
+
+  let filteredBoulders = boulders;
+  if (selectedRatings.length) {
+    filteredBoulders = boulders.filter((boulder) => {
+      return selectedRatings.includes(boulder.rating.toLowerCase());
+    });
+  }
+
+  if (selectedLocations.length) {
+    filteredBoulders = filteredBoulders.filter((boulder) => {
+      return selectedLocations
+        .map((s) => s.toUpperCase())
+        .includes(boulder.location.toUpperCase());
+    });
+  }
 
   if (status === "loading") {
     return <div>Loading...</div>;
@@ -82,10 +99,15 @@ export const BoulderMap = () => {
           <CardCarousel
             activePinId={activePinId}
             setActivePinId={setActivePinId}
-            boulders={boulders}
+            boulders={filteredBoulders}
           />
         </CardCarouselWrapper>
-        <BoulderMapFilter />
+        <BoulderMapFilter
+          selectedRatings={selectedRatings}
+          setSelectedRatings={setSelectedRatings}
+          selectedLocations={selectedLocations}
+          setSelectedLocations={setSelectedLocations}
+        />
       </BoulderMapWrapper>
     </>
   );

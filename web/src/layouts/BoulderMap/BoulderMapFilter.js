@@ -166,10 +166,13 @@ const CollapsedFilterTitle = styled.span`
   border-right: 1px solid #333;
 `;
 
-export function BoulderMapFilter() {
+export function BoulderMapFilter({
+  selectedRatings,
+  setSelectedRatings,
+  selectedLocations,
+  setSelectedLocations,
+}) {
   const [expanded, setExpanded] = React.useState(false);
-  const [selectedRatings, setSelectedRatings] = React.useState(["green"]);
-  const [selectedLocations, setSelectedLocations] = React.useState(["Cave"]);
 
   return (
     <>

@@ -178,19 +178,19 @@ export function BoulderPage() {
           <BoulderTitle>{boulder.name}</BoulderTitle>
           <BoulderSubtitle>Named by: Matt</BoulderSubtitle>
           <PillContainer>
-            <Pill>Crimps</Pill>
-            <Pill>Heel hooks</Pill>
-            <Pill>Dyno</Pill>
+            {boulder.tags.map((tag) => (
+              <Pill key={tag}>{tag}</Pill>
+            ))}
           </PillContainer>
         </BoulderDescription>
-        <Section>
-          <SectionTitle>Boulder Stats</SectionTitle>
-          <StatSubSection>
-            <StatCardComponent title="Completion" value="89%" />
-            <StatCardComponent title="Avg Attempts" value="13" />
-            <StatCardComponent title="Elo" value="1323.3" />
-          </StatSubSection>
-        </Section>
+        {/*<Section>*/}
+        {/*  <SectionTitle>Boulder Stats</SectionTitle>*/}
+        {/*  <StatSubSection>*/}
+        {/*    <StatCardComponent title="Completion" value="89%" />*/}
+        {/*    <StatCardComponent title="Avg Attempts" value="13" />*/}
+        {/*    <StatCardComponent title="Elo" value="1323.3" />*/}
+        {/*  </StatSubSection>*/}
+        {/*</Section>*/}
         <Section>
           <SectionTitle>Recorded Sends</SectionTitle>
           <FlexSubSection>

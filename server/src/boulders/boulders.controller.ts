@@ -17,7 +17,7 @@ import {
 } from '@nestjs/swagger';
 import { IsEnum, IsNotEmpty } from 'class-validator';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { Boulder, Rating } from '@prisma/client';
+import { Rating } from '@prisma/client';
 import {
   BoulderResponse,
   BouldersResponse,
