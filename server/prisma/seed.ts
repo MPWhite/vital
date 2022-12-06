@@ -1,4 +1,4 @@
-import { PrismaClient, User, Boulder, Rating } from '@prisma/client';
+import { PrismaClient, User, Boulder, Rating, Location, Tag, BoulderTag } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -29,6 +29,8 @@ const testBoulders: Array<Boulder> = [
     name: 'Sleepwalker (Sit start)',
     primaryPhotoUrl: 'https://dl05ydgjha0pz.cloudfront.net/boulder-image-1.png',
     rating: 'RED',
+    holdColor: 'orange',
+    location: Location.ALCOVE,
     xLocation: 60,
     yLocation: 49,
     addedById: 1,
@@ -42,6 +44,8 @@ const testBoulders: Array<Boulder> = [
     name: 'Burden of hoop dreams. Very long',
     primaryPhotoUrl: 'https://dl05ydgjha0pz.cloudfront.net/boulder-image-2.jpg',
     rating: 'ORANGE',
+    holdColor: 'blue',
+    location: Location.TOPOUT,
     xLocation: 50,
     yLocation: 50,
     addedById: 1,
@@ -55,6 +59,8 @@ const testBoulders: Array<Boulder> = [
     name: 'La Dura Dura',
     primaryPhotoUrl: 'https://dl05ydgjha0pz.cloudfront.net/boulder-image-3.jpg',
     rating: 'YELLOW',
+    holdColor: 'orange',
+    location: Location.AMPHITHEATRE,
     xLocation: 50,
     yLocation: 50,
     addedById: 1,
@@ -68,6 +74,8 @@ const testBoulders: Array<Boulder> = [
     name: 'Alphane',
     primaryPhotoUrl: 'https://dl05ydgjha0pz.cloudfront.net/boulder-image-4.jpg',
     rating: 'PURPLE',
+    holdColor: 'pink',
+    location: Location.TOPOUT,
     xLocation: 75,
     yLocation: 75,
     addedById: 1,
@@ -86,7 +94,56 @@ const testBoulderCompletions = [
     attempts: 0,
     createdAt: new Date(),
   },
+  {
+    id: 2,
+    boulderId: 2,
+    userId: 1,
+    attempts: 4,
+    createdAt: new Date(),
+  },
+  {
+    id: 3,
+    boulderId: 1,
+    userId: 2,
+    attempts: 14,
+    createdAt: new Date(),
+  },
 ];
+
+const testTags: Array<Tag> = [
+  {
+    id: 1,
+    name: 'Slopers',
+  },
+  {
+    id: 2,
+    name: 'Crimps',
+  },
+  {
+    id: 2,
+    name: 'Dyno',
+  },
+  {
+    id: 3,
+    name: 'Soft',
+  },
+  {
+    id: 4,
+    name: 'Power',
+  },
+  {
+    id: 5,
+    name: 'Tricky',
+  }
+]
+
+const testBoulderTags: Array<BoulderTag> = [
+  {
+    boulderId: 1,
+    tagId: 1,
+    createdAt: new Date(),
+  }
+]
 
 async function main() {
   for (const user of testUsers) {
