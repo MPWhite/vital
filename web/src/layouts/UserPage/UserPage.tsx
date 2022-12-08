@@ -6,13 +6,14 @@ import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { fetchUser } from "./userApi";
 import { UserResponse } from "@backend/users.types";
+import { Header } from "../../components/Header/Header";
 
 const UserPageWrapper = styled.div`
   background-color: black;
-  padding: 10px;
+  padding: 50px 10px 10px 10px;
 `;
 
-const Header = styled.div`
+const UserHeader = styled.div`
   padding: 5px;
 `;
 
@@ -113,32 +114,35 @@ export function UserPage() {
   });
 
   return (
-    <UserPageWrapper>
-      <Header>
-        <ProfPic>
-          <img src={userInfo.profilePicUrl} alt="alt" />
-        </ProfPic>
-        <HeaderInfo>
-          <NameSpan>{userInfo.displayName}</NameSpan>
-          <UserStats>
-            <Stat>
-              <TitleSpan>MAX</TitleSpan>
-              <ValueSpan>Red</ValueSpan>
-            </Stat>
-            <Stat>
-              <TitleSpan>SENDS</TitleSpan>
-              <ValueSpan>
-                {userInfo.completedBoulderDescriptions.length}
-              </ValueSpan>
-            </Stat>
-            <Stat>
-              <TitleSpan>RANK</TitleSpan>
-              <ValueSpan>1</ValueSpan>
-            </Stat>
-          </UserStats>
-        </HeaderInfo>
-      </Header>
-      <TabbedSection userId={userId} />
-    </UserPageWrapper>
+    <>
+      <Header />
+      <UserPageWrapper>
+        <UserHeader>
+          <ProfPic>
+            <img src={userInfo.profilePicUrl} alt="alt" />
+          </ProfPic>
+          <HeaderInfo>
+            <NameSpan>{userInfo.displayName}</NameSpan>
+            <UserStats>
+              <Stat>
+                <TitleSpan>MAX</TitleSpan>
+                <ValueSpan>Red</ValueSpan>
+              </Stat>
+              <Stat>
+                <TitleSpan>SENDS</TitleSpan>
+                <ValueSpan>
+                  {userInfo.completedBoulderDescriptions.length}
+                </ValueSpan>
+              </Stat>
+              <Stat>
+                <TitleSpan>RANK</TitleSpan>
+                <ValueSpan>1</ValueSpan>
+              </Stat>
+            </UserStats>
+          </HeaderInfo>
+        </UserHeader>
+        <TabbedSection userId={userId} />
+      </UserPageWrapper>
+    </>
   );
 }

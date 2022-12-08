@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { fetchBoulders } from "./boulderMapApi";
 import { useQuery } from "@tanstack/react-query";
+import {Header} from "../../components/Header/Header";
 
 const BoulderMapWrapper = styled.div`
   display: flex;
@@ -34,7 +35,7 @@ const DummyHeader = styled.div`
   top: 0;
   left: 0;
   width: 100vw;
-  background-color: black;
+  background-color: #222;
   position: fixed;
   border-bottom: 1px solid #333;
   display: flex;
@@ -86,10 +87,7 @@ export const BoulderMap = () => {
 
   return (
     <>
-      <DummyHeader>
-        <span>Vital Beta</span>
-        <FontAwesomeIcon icon={faBars} />
-      </DummyHeader>
+      <Header />
       <BoulderMapWrapper>
         <GymMapWrapper color={"yellow"}>
           <SpacerDiv />

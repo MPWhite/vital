@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Formik, Field, Form } from "formik";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const BoulderUploadWrapper = styled.div`
   display: flex;
@@ -113,7 +114,9 @@ export function Login() {
           </LoginForm>
         )}
       </Formik>
-      <Subtitle>Don't have an account? Sign Up</Subtitle>
+      <Subtitle>
+        Don't have an account? <Link to={"/register"}>Sign Up</Link>
+      </Subtitle>
     </BoulderUploadWrapper>
   );
 }

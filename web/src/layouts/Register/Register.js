@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Formik, Field, Form } from "formik";
+import { Link } from "react-router-dom";
 
 const BoulderUploadWrapper = styled.div`
   display: flex;
@@ -88,7 +89,9 @@ export function Register() {
           <RegisterButton type="submit">Register</RegisterButton>
         </RegisterForm>
       </Formik>
-      <Subtitle>Already have an account? Login</Subtitle>
+      <Subtitle>
+        Already have an account? <Link to={"/login"}>Login</Link>
+      </Subtitle>
     </BoulderUploadWrapper>
   );
 }

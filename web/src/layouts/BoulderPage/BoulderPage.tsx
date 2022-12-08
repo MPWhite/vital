@@ -8,10 +8,13 @@ import { fetchBoulder } from "./bouldersApi";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import { BoulderResponse } from "@backend/boulders.types";
+import { Header } from "../../components/Header/Header";
+import { SignUpCta } from "../../components/SignupCta";
 
 const BoulderPageDiv = styled.div`
   width: 100vw;
   background-color: black;
+  padding-top: 40px;
 `;
 
 const ContentDiv = styled.div`
@@ -158,6 +161,9 @@ function SendPillComponent({
   );
 }
 
+// TODO(!) Determine site wide if the user is logged in!
+const isLoggedIn = false;
+
 export function BoulderPage() {
   const { boulderId } = useParams<{ boulderId: string }>();
   const { data: boulder, status } = useQuery<BoulderResponse>(
@@ -171,42 +177,43 @@ export function BoulderPage() {
   }
 
   return (
-    <BoulderPageDiv>
-      <ImageGallery primaryPhotoUrl={boulder.primaryPhotoUrl} />
-      <ContentDiv>
-        <BoulderDescription>
-          <BoulderTitle>{boulder.name}</BoulderTitle>
-          <BoulderSubtitle>Named by: Matt</BoulderSubtitle>
-          <PillContainer>
-            {boulder.tags.map((tag) => (
-              <Pill key={tag}>{tag}</Pill>
-            ))}
-          </PillContainer>
-        </BoulderDescription>
-        {/*<Section>*/}
-        {/*  <SectionTitle>Boulder Stats</SectionTitle>*/}
-        {/*  <StatSubSection>*/}
-        {/*    <StatCardComponent title="Completion" value="89%" />*/}
-        {/*    <StatCardComponent title="Avg Attempts" value="13" />*/}
-        {/*    <StatCardComponent title="Elo" value="1323.3" />*/}
-        {/*  </StatSubSection>*/}
-        {/*</Section>*/}
-        <Section>
-          <SectionTitle>Recorded Sends</SectionTitle>
-          <FlexSubSection>
-            {boulder.sends.map((send) => (
-              <SendPillComponent
-                userId={send.userId}
-                name={send.userName}
-                imageUrl={send.userProfilePicUrl}
-              />
-            ))}
-          </FlexSubSection>
-        </Section>
-        <Section>
-          <Buttons />
-        </Section>
-      </ContentDiv>
-    </BoulderPageDiv>
+    <>
+      <Header />
+      <BoulderPageDiv>
+        <ImageGallery primaryPhotoUrl={boulder.primaryPhotoUrl} />
+        <ContentDiv>
+          <BoulderDescription>
+            <BoulderTitle>{boulder.name}</BoulderTitle>
+            <BoulderSubtitle>Named by: Matt</BoulderSubtitle>
+            <PillContainer>
+              {boulder.tags.map((tag) => (
+                <Pill key={tag}>{tag}</Pill>
+              ))}
+            </PillContainer>
+          </BoulderDescription>
+          {/*<Section>*/}
+          {/*  <SectionTitle>Boulder Stats</SectionTitle>*/}
+          {/*  <StatSubSection>*/}
+          {/*    <StatCardComponent title="Completion" value="89%" />*/}
+          {/*    <StatCardComponent title="Avg Attempts" value="13" />*/}
+          {/*    <StatCardComponent title="Elo" value="1323.3" />*/}
+          {/*  </StatSubSection>*/}
+          {/*</Section>*/}
+          <Section>
+            <SectionTitle>Recorded Sends</SectionTitle>
+            <FlexSubSection>
+              {boulder.sends.map((send) => (
+                <SendPillComponent
+                  userId={send.userId}
+                  name={send.userName}
+                  imageUrl={send.userProfilePicUrl}
+                />
+              ))}
+            </FlexSubSection>
+          </Section>
+          <Section>{isLoggedIn ? <Buttons /> : <SignUpCta />}</Section>
+        </ContentDiv>
+      </BoulderPageDiv>
+    </>
   );
 }
