@@ -192,65 +192,36 @@ const testBoulderTags: Array<BoulderTag> = [
 
 async function main() {
   for (const user of testUsers) {
-    await prisma.user.upsert({
-      where: { id: user.id },
-      update: {
-        ...user,
-      },
-      create: {
-        ...user,
-      },
+    const { id, ...rest } = user;
+    await prisma.user.create({
+      data: rest,
     });
   }
   for (const boulder of testBoulders) {
-    const { id, ...boulderData } = boulder;
-    await prisma.boulder.upsert({
-      where: { id: boulder.id },
-      update: {
-        ...boulderData,
-      },
-      create: {
-        ...boulderData,
-      },
+    const { id, ...rest } = boulder;
+    await prisma.boulder.create({
+      data: rest,
     });
   }
 
   for (const boulderCompletion of testBoulderCompletions) {
     const { id, ...boulderCompletionData } = boulderCompletion;
-    await prisma.boulderCompletion.upsert({
-      where: { id: boulderCompletion.id },
-      update: {
-        ...boulderCompletionData,
-      },
-      create: {
-        ...boulderCompletionData,
-      },
+    await prisma.boulderCompletion.create({
+      data: boulderCompletionData,
     });
   }
 
   for (const tag of testTags) {
     const { id, ...tagData } = tag;
-    await prisma.tag.upsert({
-      where: { id: tag.id },
-      update: {
-        ...tagData,
-      },
-      create: {
-        ...tagData,
-      },
+    await prisma.tag.create({
+      data: tagData,
     });
   }
 
   for (const boulderTag of testBoulderTags) {
     const { id, ...boulderTagData } = boulderTag;
-    await prisma.boulderTag.upsert({
-      where: { id: id },
-      update: {
-        ...boulderTagData,
-      },
-      create: {
-        ...boulderTagData,
-      },
+    await prisma.boulderTag.create({
+      data: boulderTagData,
     });
   }
 }

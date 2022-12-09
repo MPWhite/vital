@@ -10,6 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { SignUpCta } from "../SignupCta";
+import { AuthContext } from "../Auth/AuthContextProvider";
 
 const DummyHeader = styled.div`
   height: 40px;
@@ -23,20 +24,38 @@ const DummyHeader = styled.div`
   justify-content: space-between;
   z-index: 2000;
 
-  span {
-    color: white;
-    font-size: 16px;
-    font-weight: 900;
-    line-height: 40px;
-    margin-left: 10px;
-  }
-
   svg {
-    margin-top: 8px;
+    margin-top: 12.5px;
     color: white;
-    height: 24px;
-    margin-right: 10px;
+    margin-left: 15px;
+    width: 15px;
   }
+`;
+
+const DummyHeaderLeft = styled.div`
+  display: flex;
+`
+
+const DummyHeaderRight = styled.div`
+  display: flex;
+  margin-right: 10px;
+  object-fit: cover;
+  background-color: black;
+  img {
+    width: 30px;
+    height: 30px;
+    margin-top: 5px;
+    border-radius: 15px;
+    margin-right: 5px;
+  }
+`
+
+const AppTitle = styled.span`
+  color: white;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 40px;
+  margin-left: 10px;
 `;
 
 const HeaderMenu = styled.div`
@@ -79,25 +98,57 @@ const CtaWrapper = styled.div`
   padding: 20px;
 `;
 
-// TODO(!) Need to do global "isLoggedIn" and general global aith
-const isLoggedIn = false;
+const UserName = styled.span`
+  color: white;
+  line-height: 40px;
+  font-size: 12px;
+`;
 
 export const Header = ({}) => {
+  const useAuth = () => {
+    const context = React.useContext(AuthContext);
+    if (context === undefined) {
+      throw new Error("AuthContext must be within AuthProvider");
+    }
+
+    return context;
+  };
+
   const [open, setOpen] = React.useState(false);
+  const { isAuthenticated, user, login, logout } = useAuth();
+
+  console.log(user);
+
   return (
     <>
       <DummyHeader>
-        <span>Vital Beta</span>
-        <div onClick={() => setOpen(!open)}>
-          {open ? (
-            <FontAwesomeIcon icon={faXmark} />
-          ) : (
-            <FontAwesomeIcon icon={faBars} />
-          )}
-        </div>
+        <DummyHeaderLeft>
+          <div onClick={() => setOpen(!open)}>
+            {open ? (
+              <FontAwesomeIcon icon={faXmark} />
+            ) : (
+              <FontAwesomeIcon icon={faBars} />
+            )}
+          </div>
+          <AppTitle>Vital Beta</AppTitle>
+        </DummyHeaderLeft>
+
+
+        {isAuthenticated ? (
+          <DummyHeaderRight>
+            <img src={user.profilePicUrl}/>
+            <UserName>{user.displayName}</UserName>
+          </DummyHeaderRight>
+        ) : (
+          <DummyHeaderRight>
+            <Link to="/login">
+              <button>Login</button>
+            </Link>
+          </DummyHeaderRight>
+        )}
       </DummyHeader>
       <HeaderMenu open={open}>
-        {isLoggedIn ? (
+        {isAuthenticated ? (
           <HeadMenuList>
             <Link to="/">
               <HeaderMenuItem>
@@ -111,12 +162,12 @@ export const Header = ({}) => {
                 <HeaderMenuName>Manage Account</HeaderMenuName>
               </HeaderMenuItem>
             </Link>
-            <Link to="/">
+            <div onClick={logout}>
               <HeaderMenuItem>
                 <FontAwesomeIcon icon={faArrowRightFromBracket} />
                 <HeaderMenuName>Logout</HeaderMenuName>
               </HeaderMenuItem>
-            </Link>
+            </div>
           </HeadMenuList>
         ) : (
           <CtaWrapper>

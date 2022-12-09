@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { Formik, Field, Form } from "formik";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {AuthContext} from "../../components/Auth/AuthContextProvider";
+
 
 const BoulderUploadWrapper = styled.div`
   display: flex;
@@ -56,23 +58,17 @@ const LoginForm = styled.form`
   padding: 20px;
 `;
 
-// TODO(!) Move this to another file
-const postLogin = async (email, password) => {
-  console.log(email);
-  console.log(password);
-  const resp = await axios.post("/api/auth/login", {
-    email: email,
-    password: "password",
-  });
-  return resp.data;
-};
-
 export function Login() {
-  const login = useMutation(postLogin, {
-    onSuccess: (data) => {
-      console.log(JSON.stringify(data));
-    },
-  });
+  const navigate = useNavigate();
+  const useAuth = () => {
+    const context = React.useContext(AuthContext);
+    if (context === undefined) {
+      throw new Error("useAuth must be used within an AuthProvider");
+    }
+    return context;
+  }
+
+  const { login } = useAuth();
 
   return (
     <BoulderUploadWrapper>
@@ -80,17 +76,17 @@ export function Login() {
       <Subtitle>Please sign in to your account</Subtitle>
       <Formik
         initialValues={{
-          email: "mattp.white95+test-user-1@gmail.com",
+          email: "mattp.white95+test-user-2@gmail.com",
           password: "password",
         }}
         validator={() => ({})}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
-          setSubmitting(true);
-          setTimeout(() => {
-            login.mutate(values.email, values.password);
-            setSubmitting(false);
-          }, 1);
+          try {
+            login(values);
+            navigate("/");
+          } catch (error) {
+            console.log("dsjka", error);
+          }
         }}
       >
         {({ handleSubmit, isSubmitting }) => (

@@ -11,18 +11,37 @@ class UserLoginDto {
   password: string;
 }
 
+class UserRegisterDto {
+  @ApiProperty()
+  email: string;
+  @ApiProperty()
+  password: string;
+}
+
 @Controller('auth')
 @ApiTags('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  // TODO type this
   @UseGuards(LocalAuthGuard)
   @ApiBody({ type: UserLoginDto })
   @Post('/login')
-  async login(@Body() userRegisterDto: UserLoginDto) {
+  async login(@Body() userLoginDto: UserLoginDto) {
     console.log('login');
-    console.log(userRegisterDto);
+    console.log(userLoginDto);
     return this.authService.login(
+      userLoginDto.email,
+      userLoginDto.password,
+    );
+  }
+
+  @ApiBody({ type: UserRegisterDto })
+  @Post('/register')
+  async register(@Body() userRegisterDto: UserRegisterDto) {
+    console.log('register');
+    console.log(userRegisterDto);
+    return this.authService.register(
       userRegisterDto.email,
       userRegisterDto.password,
     );

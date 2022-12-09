@@ -57,4 +57,15 @@ export class UsersService {
       where: { email },
     });
   }
+
+  async createUser(email: string, hashedPassword: string): Promise<User> {
+    // TODO -- Figure out what to do about display name
+    return this.prisma.user.create({
+      data: {
+        email,
+        hashedPassword,
+        displayName: "Crusher32"
+      },
+    });
+  }
 }

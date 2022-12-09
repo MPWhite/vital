@@ -19,6 +19,7 @@
     "@types/react-query": "^1.2.9",
     "@types/styled-components": "^5.1.26",
     "axios": "^1.2.0",
+    "axios-hooks": "^4.0.0",
     "formik": "^2.2.9",
     "http-proxy-middleware": "^2.0.6",
     "javascript-time-ago": "^2.5.9",
