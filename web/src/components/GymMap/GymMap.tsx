@@ -38,6 +38,7 @@ const GymMap = ({
       <img src="/gymMap.png" alt="TODO" />
       {boulders.map((b) => (
         <Pin
+          key={b.id}
           x={b.xLocation}
           y={b.yLocation}
           color={b.rating}

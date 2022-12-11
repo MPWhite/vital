@@ -4,8 +4,9 @@ import { Formik, Field, Form } from "formik";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import {AuthContext} from "../../components/Auth/AuthContextProvider";
-
+import { AuthContext } from "../../components/Auth/AuthContextProvider";
+import { useAuth } from "../../components/Auth/hooks";
+import { useError } from "../../components/ErrorBar/ErrorContextProvider";
 
 const BoulderUploadWrapper = styled.div`
   display: flex;
@@ -60,15 +61,8 @@ const LoginForm = styled.form`
 
 export function Login() {
   const navigate = useNavigate();
-  const useAuth = () => {
-    const context = React.useContext(AuthContext);
-    if (context === undefined) {
-      throw new Error("useAuth must be used within an AuthProvider");
-    }
-    return context;
-  }
-
   const { login } = useAuth();
+  const { showError } = useError();
 
   return (
     <BoulderUploadWrapper>
@@ -80,18 +74,17 @@ export function Login() {
           password: "password",
         }}
         validator={() => ({})}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={async (values, { setSubmitting }) => {
           try {
-            login(values);
+            await login(values);
             navigate("/");
           } catch (error) {
-            console.log("dsjka", error);
+            showError(error.message);
           }
         }}
       >
         {({ handleSubmit, isSubmitting }) => (
           <LoginForm onSubmit={handleSubmit}>
-            {/*<LoginEmail name="name" type="text" />*/}
             <Field
               name="email"
               type="email"

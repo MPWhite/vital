@@ -110,7 +110,7 @@ const BoulderCard = ({
           <BoulderSubtitle>Named by: Matt</BoulderSubtitle>
           <PillContainer>
             {tags.map((tag) => (
-              <Pill>{tag}</Pill>
+              <Pill key={tag}>{tag}</Pill>
             ))}
           </PillContainer>
         </BoulderCardDescription>

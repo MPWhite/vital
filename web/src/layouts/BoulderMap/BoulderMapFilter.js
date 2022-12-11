@@ -218,6 +218,7 @@ export function BoulderMapFilter({
             {ratings.map((color) => (
               <RatingPillComponent
                 color={color}
+                key={color}
                 selected={selectedRatings.includes(color)}
                 onClick={() => {
                   setSelectedRatings(
@@ -236,6 +237,7 @@ export function BoulderMapFilter({
             {location.map((locationName) => (
               <LocationPillComponent
                 locationName={locationName}
+                key={locationName}
                 selected={selectedLocations.includes(locationName)}
                 onClick={() => {
                   setSelectedLocations(

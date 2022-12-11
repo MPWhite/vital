@@ -11,6 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import { SignUpCta } from "../SignupCta";
 import { AuthContext } from "../Auth/AuthContextProvider";
+import { useAuth } from "../Auth/hooks";
 
 const DummyHeader = styled.div`
   height: 40px;
@@ -20,6 +21,7 @@ const DummyHeader = styled.div`
   background-color: #222;
   position: fixed;
   border-bottom: 1px solid #333;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   z-index: 2000;
@@ -34,21 +36,21 @@ const DummyHeader = styled.div`
 
 const DummyHeaderLeft = styled.div`
   display: flex;
-`
+`;
 
 const DummyHeaderRight = styled.div`
   display: flex;
   margin-right: 10px;
   object-fit: cover;
-  background-color: black;
   img {
     width: 30px;
     height: 30px;
+    object-fit: cover;
     margin-top: 5px;
     border-radius: 15px;
     margin-right: 5px;
   }
-`
+`;
 
 const AppTitle = styled.span`
   color: white;
@@ -66,7 +68,7 @@ const HeaderMenu = styled.div`
   position: fixed;
   z-index: 1990;
   top: ${(props) => (props.open ? "0" : "-100%")};
-  transition: top 0.3s ease-in-out;
+  transition: top 0.1s ease-in-out;
 `;
 
 const HeadMenuList = styled.div`
@@ -104,20 +106,21 @@ const UserName = styled.span`
   font-size: 12px;
 `;
 
+const LoginButton = styled.button`
+  width: 100px;
+  height: 28px;
+  margin-top: 6px;
+  border: none;
+  background: linear-gradient(-45deg, #0072ff, #00c6ff);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 10px;
+`;
+
 export const Header = ({}) => {
-  const useAuth = () => {
-    const context = React.useContext(AuthContext);
-    if (context === undefined) {
-      throw new Error("AuthContext must be within AuthProvider");
-    }
-
-    return context;
-  };
-
   const [open, setOpen] = React.useState(false);
-  const { isAuthenticated, user, login, logout } = useAuth();
-
-  console.log(user);
+  const { isAuthenticated, user, logout } = useAuth();
 
   return (
     <>
@@ -133,16 +136,15 @@ export const Header = ({}) => {
           <AppTitle>Vital Beta</AppTitle>
         </DummyHeaderLeft>
 
-
         {isAuthenticated ? (
           <DummyHeaderRight>
-            <img src={user.profilePicUrl}/>
-            <UserName>{user.displayName}</UserName>
+            <img src={user.profilePicUrl} />
+            {/*<UserName>{user.displayName}</UserName>*/}
           </DummyHeaderRight>
         ) : (
           <DummyHeaderRight>
             <Link to="/login">
-              <button>Login</button>
+              <LoginButton>Login</LoginButton>
             </Link>
           </DummyHeaderRight>
         )}

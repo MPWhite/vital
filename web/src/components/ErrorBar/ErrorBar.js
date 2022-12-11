@@ -1,18 +1,29 @@
-import React, { Component } from "react";
+import React from "react";
 import "./ErrorBar.scss";
+import styled from "styled-components";
+import { useError } from "./ErrorContextProvider";
 
-class ErrorBar extends Component {
-  render() {
-    const { errorMessage } = this.props;
-    if (!errorMessage) {
-      return <div />;
-    }
-    return (
-      <div className="ErrorBar">
-        <p>{errorMessage}</p>
-      </div>
-    );
+const ErrorBarDiv = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffa5a5;
+  color: #d8000c;
+  text-align: center;
+  height: 50px;
+`;
+
+export const ErrorBar = () => {
+  const { error } = useError();
+
+  if (!error) {
+    return null;
   }
-}
 
-export default ErrorBar;
+  return (
+    <ErrorBarDiv>
+      <p>{error}</p>
+    </ErrorBarDiv>
+  );
+};

@@ -10,6 +10,7 @@ import { useParams } from "react-router";
 import { BoulderResponse } from "@backend/boulders.types";
 import { Header } from "../../components/Header/Header";
 import { SignUpCta } from "../../components/SignupCta";
+import { useAuth } from "../../components/Auth/hooks";
 
 const BoulderPageDiv = styled.div`
   width: 100vw;
@@ -161,17 +162,14 @@ function SendPillComponent({
   );
 }
 
-// TODO(!) Determine site wide if the user is logged in!
-const isLoggedIn = false;
-
 export function BoulderPage() {
   const { boulderId } = useParams<{ boulderId: string }>();
+  const { isAuthenticated } = useAuth();
   const { data: boulder, status } = useQuery<BoulderResponse>(
     ["boulder", boulderId],
     () => fetchBoulder(boulderId || "1")
   );
 
-  console.log(boulder);
   if (!boulder) {
     return <div>Loading...</div>;
   }
@@ -204,6 +202,7 @@ export function BoulderPage() {
             <FlexSubSection>
               {boulder.sends.map((send) => (
                 <SendPillComponent
+                  key={send.userId}
                   userId={send.userId}
                   name={send.userName}
                   imageUrl={send.userProfilePicUrl}
@@ -211,7 +210,7 @@ export function BoulderPage() {
               ))}
             </FlexSubSection>
           </Section>
-          <Section>{isLoggedIn ? <Buttons /> : <SignUpCta />}</Section>
+          <Section>{isAuthenticated ? <Buttons /> : <SignUpCta />}</Section>
         </ContentDiv>
       </BoulderPageDiv>
     </>

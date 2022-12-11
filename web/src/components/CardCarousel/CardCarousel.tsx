@@ -34,7 +34,7 @@ const CardCarousel = ({
   const ref = useRef();
   const childrenCards = boulders.map((b) => {
     return (
-      <Card>
+      <Card key={b.id}>
         <BoulderCard
           boulderId={b.id}
           title={b.name}
