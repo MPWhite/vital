@@ -2,6 +2,8 @@ import React from "react";
 import classnames from "classnames";
 import Confetti from "react-dom-confetti";
 import styled from "styled-components";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { attemptBoulder, completeBoulder } from "./bouldersApi";
 
 const config = {
   angle: 90,
@@ -37,12 +39,12 @@ const BoulderPageButtons = styled.div`
   }
 `;
 
-const AttemptedButton = styled.button`
+const AttemptedButton = styled.button<any>`
   display: ${(props) => (props.completed ? "none" : "block")};
   background-color: #0072ff;
 `;
 
-const CompletedButton = styled.button`
+const CompletedButton = styled.button<any>`
   position: absolute;
   left: ${(props) => (props.completed ? "10px" : "50%")};
   background-color: ${(props) => (props.completed ? "#239423" : "#0072ff")};
@@ -50,24 +52,52 @@ const CompletedButton = styled.button`
     props.completed ? "calc(100% - 20px)" : "48%"} !important;
 `;
 
-export function Buttons() {
-  const [attemptCount, setAttemptCount] = React.useState(0);
-  const [isCompleted, setIsCompleted] = React.useState(false);
+export function Buttons({
+  boulderId,
+  attempts,
+  completed,
+}: {
+  boulderId: string;
+  attempts: number;
+  completed: boolean;
+}) {
+  const [attemptCount, setAttemptCount] = React.useState(attempts);
+  const [isCompleted, setIsCompleted] = React.useState(completed);
+
+  const { mutate: attempt, isLoading: attemptLoading } = useMutation(
+    attemptBoulder,
+    {
+      onSuccess: () => {
+        setAttemptCount(attemptCount + 1);
+      },
+    }
+  );
+
+  const queryClient = useQueryClient();
+  const { mutate: complete, isLoading: completeLoading } = useMutation(
+    completeBoulder,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["boulder", boulderId] });
+        setIsCompleted(true);
+      },
+    }
+  );
 
   return (
     <BoulderPageButtons>
       <AttemptedButton
         completed={isCompleted}
         onClick={() => {
-          setAttemptCount(attemptCount + 1);
+          attempt(boulderId);
         }}
       >
-        Record Attempt ({attemptCount})
+        {attemptLoading ? "Loading..." : `Attempted (${attemptCount})`}
       </AttemptedButton>
       <CompletedButton
         completed={isCompleted}
         onClick={() => {
-          setIsCompleted(!isCompleted);
+          complete(boulderId);
         }}
         disabled={isCompleted}
       >

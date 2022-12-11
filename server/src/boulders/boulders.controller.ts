@@ -55,6 +55,7 @@ export class BouldersController {
   @Post('/:boulderId/attempt')
   @ApiParam({ name: 'boulderId', example: '1' })
   recordAttempt(@Request() req, @Param() param: { boulderId: string }) {
+    console.log('ATTEMPTED');
     return this.boulders.recordAttempt(req.user.id, parseInt(param.boulderId));
   }
 
@@ -62,6 +63,7 @@ export class BouldersController {
   @Post('/:boulderId/complete')
   @ApiParam({ name: 'boulderId', required: true })
   complete(@Request() req, @Param() param: { boulderId: string }) {
+    console.log('COMPLETED');
     return this.boulders.completeBoulder(
       req.user.id,
       parseInt(param.boulderId),
