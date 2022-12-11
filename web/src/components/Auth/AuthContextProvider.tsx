@@ -33,6 +33,7 @@ export function AuthProvider(props: any) {
 
   const login = async (loginData: { email: string; password: string }) => {
     // TODO -- add error handling to display message
+    console.log("FINDME");
     await loginQuery.mutateAsync({ loginData });
   };
 
@@ -45,29 +46,29 @@ export function AuthProvider(props: any) {
     localStorage.removeItem("user");
   };
 
-  useEffect(() => {
-    // add authorization token to each request
-    axios.interceptors.request.use(
-      (config: AxiosRequestConfig): AxiosRequestConfig => {
-        config.baseURL = "http://localhost:3000";
-        // @ts-ignore
-        config.headers.authorization = `Bearer ${accessTokenRef.current}`;
-        // this is important to include the cookies when we are sending the requests to the backend.
-        config.withCredentials = true;
-        return config;
-      }
-    );
-
-    axios.interceptors.response.use(
-      (response) => response,
-      async (error) => {
-        return Promise.reject(error);
-      }
-    );
-
-    // configure axios-hooks to use this instance of axios
-    configure({ axios });
-  }, []);
+  // useEffect(() => {
+  //   // add authorization token to each request
+  //   axios.interceptors.request.use(
+  //     (config: AxiosRequestConfig): AxiosRequestConfig => {
+  //       config.baseURL = "http://localhost:3000";
+  //       // @ts-ignore
+  //       config.headers.authorization = `Bearer ${accessTokenRef.current}`;
+  //       // this is important to include the cookies when we are sending the requests to the backend.
+  //       config.withCredentials = true;
+  //       return config;
+  //     }
+  //   );
+  //
+  //   axios.interceptors.response.use(
+  //     (response) => response,
+  //     async (error) => {
+  //       return Promise.reject(error);
+  //     }
+  //   );
+  //
+  //   // configure axios-hooks to use this instance of axios
+  //   configure({ axios });
+  // }, []);
 
   const authToken = localStorage.getItem("authToken");
   const user = {
