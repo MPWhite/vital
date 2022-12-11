@@ -137,10 +137,12 @@ export const Header = ({}) => {
         </DummyHeaderLeft>
 
         {isAuthenticated ? (
-          <DummyHeaderRight>
-            <img src={user.profilePicUrl} />
-            {/*<UserName>{user.displayName}</UserName>*/}
-          </DummyHeaderRight>
+          <Link to={`/user/${user.id}`}>
+            <DummyHeaderRight>
+              <img src={user.profilePicUrl} />
+              {/*<UserName>{user.displayName}</UserName>*/}
+            </DummyHeaderRight>
+          </Link>
         ) : (
           <DummyHeaderRight>
             <Link to="/login">
