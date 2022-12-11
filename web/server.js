@@ -7,7 +7,7 @@ const port = Number(process.env.PORT) || 3000; // read process.env.PORT from her
 app.use(express.static(path.join(__dirname, "build"))); // here we serve all the statics
 
 app.use("/api", function (req, res) {
-  const url = "https://vital-beta-server.herokuapp.com/api/" + req.url;
+  const url = "https://vital-beta-server.herokuapp.com/api" + req.url;
   req.pipe(request({ qs: req.query, uri: url })).pipe(res);
 });
 
