@@ -160,7 +160,7 @@ export const Header = ({}) => {
                 <HeaderMenuName>Browse Boulders</HeaderMenuName>
               </HeaderMenuItem>
             </Link>
-            <Link to="/">
+            <Link to="/settings">
               <HeaderMenuItem>
                 <FontAwesomeIcon icon={faGear} />
                 <HeaderMenuName>Manage Account</HeaderMenuName>
