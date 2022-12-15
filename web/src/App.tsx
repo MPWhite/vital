@@ -12,6 +12,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ErrorBar } from "./components/ErrorBar/ErrorBar";
 import { ErrorProvider } from "./components/ErrorBar/ErrorContextProvider";
 import { UserSettings } from "./layouts/UserSettings/UserSettings";
+import BoulderUpload from "./layouts/BoulderUpload/BoulderUpload";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,6 +36,7 @@ function App() {
               <Route path={"/login"} element={<Login />} />
               <Route path={"/register"} element={<Register />} />
               <Route path={"/settings"} element={<UserSettings />} />
+              <Route path={"/upload"} element={<BoulderUpload />} />
               {/*TEST*/}
             </Routes>
           </BrowserRouter>

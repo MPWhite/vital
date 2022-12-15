@@ -6,11 +6,14 @@ import {
   Request,
   UseGuards,
   Param,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { BouldersService } from './boulders.service';
 import {
   ApiBearerAuth,
   ApiBody,
+  ApiConsumes,
   ApiParam,
   ApiProperty,
   ApiTags,
@@ -22,6 +25,8 @@ import {
   BoulderResponse,
   BouldersResponse,
 } from '../sharedTypes/boulders.types';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { S3Service } from '../s3/s3.service';
 
 class SetBoulderNameDto {
   @IsNotEmpty()
@@ -36,20 +41,27 @@ class SetBoulderNameDto {
 class CreateBoulderDto {
   @IsNotEmpty()
   @ApiProperty({ example: 50 })
-  xLocation: number;
+  // TODO -- this should be number, but I'm not sure why it won't work
+  xLocation: string;
   @IsNotEmpty()
   @ApiProperty({ example: 50 })
-  yLocation: number;
+  yLocation: string;
   @IsNotEmpty({})
   @ApiProperty({ example: 'Orange' })
   rating: string;
+  @IsNotEmpty()
+  @ApiProperty({ example: 'red' })
+  holdColor: string;
 }
 
 @Controller('boulders')
 @ApiTags('boulders')
 @ApiBearerAuth('defaultBearerAuth')
 export class BouldersController {
-  constructor(private readonly boulders: BouldersService) {}
+  constructor(
+    private readonly boulders: BouldersService,
+    private readonly s3: S3Service,
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @Post('/:boulderId/attempt')
@@ -98,15 +110,24 @@ export class BouldersController {
   @UseGuards(JwtAuthGuard)
   @Post('/create')
   @ApiBody({ type: CreateBoulderDto })
-  createBoulder(@Request() req, @Body() boulder: CreateBoulderDto) {
-    // random 4 alphanumeric characters
+  @UseInterceptors(FileInterceptor('file'))
+  async createBoulder(
+    @Request() req,
+    @Body() boulder: CreateBoulderDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    const fileType = file.originalname.split('.')[1];
+    const key = Math.random().toString(36).substring(7) + '.' + fileType;
+    await this.s3.uploadFile(file, key);
     const randomId = Math.random().toString(36).substring(2, 5).toUpperCase();
     return this.boulders.createBoulder(
+      `https://dl05ydgjha0pz.cloudfront.net/${key}`,
       req.user.id,
       `Project-${randomId}`,
-      boulder.rating,
-      boulder.xLocation,
-      boulder.yLocation,
+      boulder.rating as Rating,
+      parseFloat(boulder.xLocation),
+      parseFloat(boulder.yLocation),
+      boulder.holdColor,
     );
   }
 }

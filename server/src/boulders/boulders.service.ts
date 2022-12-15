@@ -4,7 +4,7 @@ import {
   BoulderResponse,
   BouldersResponse,
 } from '../sharedTypes/boulders.types';
-import { Location } from '@prisma/client';
+import { Location, Rating } from '@prisma/client';
 
 @Injectable()
 export class BouldersService {
@@ -137,22 +137,30 @@ export class BouldersService {
     });
   }
 
+  // TODO: This should go away and we should use UUID instead
+  async getNextBoulderId(): Promise<number> {
+    return (await this.prisma.boulder.count()) + 1;
+  }
+
   async createBoulder(
+    primaryPhotoUrl: string,
     userId: number,
     name: string,
-    rating: string,
+    rating: Rating,
     xLocation: number,
     yLocation: number,
+    holdColor: string,
   ) {
+    this.prisma.$transaction([]);
     await this.prisma.boulder.create({
       data: {
         name,
-        primaryPhotoUrl: 'TODO',
-        rating: 'RED',
+        primaryPhotoUrl,
+        rating,
         xLocation,
         yLocation,
         addedById: userId,
-        holdColor: 'red',
+        holdColor,
         location: Location.AMPHITHEATRE,
       },
     });

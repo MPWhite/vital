@@ -8,7 +8,7 @@ const CarouselWrapper = styled.div`
   display: flex;
   overflow: auto;
   scroll-snap-type: x mandatory;
-  padding: 0 50px 60px 50px;
+  padding: 0 140px 60px 50px;
 `;
 
 const CardDiv = styled.div`
