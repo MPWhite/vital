@@ -1,21 +1,33 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./BoulderUploadMap.scss";
-import "../../styles/generic.scss";
+import styled from "styled-components";
 
-const ratingToClass = {
-  green: "bg-green",
-  yellow: "bg-yellow",
-  orange: "bg-orange",
-  red: "bg-red",
-  purple: "bg-purple",
-  black: "bg-black",
-  white: "bg-white",
-};
+const BoulderUploadMapWrapper = styled.div`
+  position: relative;
+  background-color: lime;
+  width: 80%;
+  height: fit-content;
+  margin: 0 auto;
+`;
+
+const BoulderMap = styled.img`
+  width: 100%;
+  object-fit: contain;
+`;
+
+const Pin = styled.div`
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%);
+  background-color: red;
+  top: ${(props) => props.top};
+  left: ${(props) => props.left};
+  border-radius: 50%;
+`;
 
 const BoulderUploadMap = ({ boulderRating, input: { value, onChange } }) => {
   const ref = useRef();
-
-  const ratingClass = boulderRating ? ratingToClass[boulderRating] : "";
 
   const handleClick = (evt) => {
     const clickFromTop =
@@ -33,21 +45,15 @@ const BoulderUploadMap = ({ boulderRating, input: { value, onChange } }) => {
     return `${p * 100}%`;
   };
 
-  const className = `BoulderUploadMap__Pin ${ratingClass}`;
   return (
-    <>
-      <h3>Set Gym Location</h3>
-      <div ref={ref} className="BoulderUploadMap" onClick={handleClick}>
-        <img src="./gymMap.png" alt="Broken: Requires Image" />
-        <div
-          className={className}
-          style={{
-            top: formatPercent(value.top),
-            left: formatPercent(value.left),
-          }}
-        />
-      </div>
-    </>
+    <BoulderUploadMapWrapper
+      ref={ref}
+      className="BoulderUploadMap"
+      onClick={handleClick}
+    >
+      <BoulderMap src="./gymMap.png" l alt="Broken: Requires Image" />
+      <Pin top={formatPercent(value.top)} left={formatPercent(value.left)} />
+    </BoulderUploadMapWrapper>
   );
 };
 
