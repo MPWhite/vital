@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRightFromBracket,
-  faBars,
+  faBars, faCloudArrowUp,
   faGear,
   faSearch,
   faXmark,
@@ -79,11 +79,10 @@ const HeadMenuList = styled.div`
 const HeaderMenuItem = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100px;
-  padding: 10px;
+  width: 50px;
 
   svg {
-    font-size: 30px;
+    font-size: 20px;
     margin-bottom: 5px;
     color: white;
   }
@@ -92,7 +91,7 @@ const HeaderMenuItem = styled.div`
 const HeaderMenuName = styled.span`
   color: #ccc;
   text-align: center;
-  font-size: 10px;
+  font-size: 8px;
 `;
 
 const CtaWrapper = styled.div`
@@ -157,13 +156,19 @@ export const Header = ({}) => {
             <Link to="/">
               <HeaderMenuItem>
                 <FontAwesomeIcon icon={faSearch} />
-                <HeaderMenuName>Browse Boulders</HeaderMenuName>
+                <HeaderMenuName>Search</HeaderMenuName>
               </HeaderMenuItem>
             </Link>
             <Link to="/settings">
               <HeaderMenuItem>
                 <FontAwesomeIcon icon={faGear} />
-                <HeaderMenuName>Manage Account</HeaderMenuName>
+                <HeaderMenuName>Settings</HeaderMenuName>
+              </HeaderMenuItem>
+            </Link>
+            <Link to="/upload">
+              <HeaderMenuItem>
+                <FontAwesomeIcon icon={faCloudArrowUp} />
+                <HeaderMenuName>Upload</HeaderMenuName>
               </HeaderMenuItem>
             </Link>
             <div onClick={logout}>
