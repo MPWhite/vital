@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { ImageGallery } from "./ImageGallery";
 import { Buttons } from "./Buttons";
 import styled from "styled-components";
-import { fetchBoulder } from "./bouldersApi";
-import { useQuery } from "@tanstack/react-query";
+import { attemptBoulder, fetchBoulder } from "./bouldersApi";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import { BoulderResponse } from "@backend/boulders.types";
 import { Header } from "../../components/Header/Header";
@@ -164,7 +164,7 @@ function SendPillComponent({
 
 export function BoulderPage() {
   const { boulderId } = useParams<{ boulderId: string }>();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const { data: boulder, status } = useQuery<BoulderResponse>(
     ["boulder", boulderId],
     () => fetchBoulder(boulderId || "1")
@@ -210,7 +210,17 @@ export function BoulderPage() {
               ))}
             </FlexSubSection>
           </Section>
-          <Section>{isAuthenticated ? <Buttons /> : <SignUpCta />}</Section>
+          <Section>
+            {isAuthenticated ? (
+              <Buttons
+                boulderId={boulder.id}
+                attempts={0}
+                completed={boulder.sends.map((s) => s.userId).includes(user.id)}
+              />
+            ) : (
+              <SignUpCta />
+            )}
+          </Section>
         </ContentDiv>
       </BoulderPageDiv>
     </>

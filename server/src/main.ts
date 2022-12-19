@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import { SwaggerTheme } from 'swagger-themes';
+import * as process from 'process';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -15,10 +15,8 @@ async function bootstrap() {
     .addBearerAuth(undefined, 'defaultBearerAuth')
     .build();
 
-  const theme = new SwaggerTheme('v3');
   const options = {
     explorer: true,
-    customCss: theme.getBuffer('dark'),
     swaggerOptions: {
       authAction: {
         defaultBearerAuth: {
@@ -42,9 +40,9 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  await app.listen(3001);
+  await app.listen(process.env.PORT || 3001);
 }
 
 bootstrap().then((r) => {
-  console.log('🏃🏃🏃');
+  console.log(`🏃🏃🏃: ${process.env.PORT || 3001}`);
 });

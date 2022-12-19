@@ -33,6 +33,7 @@ export function AuthProvider(props: any) {
 
   const login = async (loginData: { email: string; password: string }) => {
     // TODO -- add error handling to display message
+    console.log("FINDME");
     await loginQuery.mutateAsync({ loginData });
   };
 
@@ -47,11 +48,13 @@ export function AuthProvider(props: any) {
 
   useEffect(() => {
     // add authorization token to each request
+    console.log("AHHHHHH FINDME");
     axios.interceptors.request.use(
       (config: AxiosRequestConfig): AxiosRequestConfig => {
-        config.baseURL = "http://localhost:3000";
         // @ts-ignore
-        config.headers.authorization = `Bearer ${accessTokenRef.current}`;
+        config.headers.authorization = `Bearer ${localStorage.getItem(
+          "authToken"
+        )}`;
         // this is important to include the cookies when we are sending the requests to the backend.
         config.withCredentials = true;
         return config;

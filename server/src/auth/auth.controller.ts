@@ -28,19 +28,12 @@ export class AuthController {
   @ApiBody({ type: UserLoginDto })
   @Post('/login')
   async login(@Body() userLoginDto: UserLoginDto) {
-    console.log('login');
-    console.log(userLoginDto);
-    return this.authService.login(
-      userLoginDto.email,
-      userLoginDto.password,
-    );
+    return this.authService.login(userLoginDto.email, userLoginDto.password);
   }
 
   @ApiBody({ type: UserRegisterDto })
   @Post('/register')
   async register(@Body() userRegisterDto: UserRegisterDto) {
-    console.log('register');
-    console.log(userRegisterDto);
     return this.authService.register(
       userRegisterDto.email,
       userRegisterDto.password,
