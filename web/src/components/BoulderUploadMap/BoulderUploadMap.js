@@ -4,8 +4,7 @@ import styled from "styled-components";
 
 const BoulderUploadMapWrapper = styled.div`
   position: relative;
-  background-color: lime;
-  width: 80%;
+  width: 70%;
   height: fit-content;
   margin: 0 auto;
 `;

@@ -82,7 +82,7 @@ const HeaderMenuItem = styled.div`
   width: 50px;
 
   svg {
-    font-size: 20px;
+    font-size: 30px;
     margin-bottom: 5px;
     color: white;
   }
