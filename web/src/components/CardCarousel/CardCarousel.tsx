@@ -39,7 +39,7 @@ const CardCarousel = ({
           boulderId={b.id}
           title={b.name}
           imgSrc={b.primaryPhotoUrl}
-          holdColor={"RED"}
+          holdColor={b.holdColor}
           rating={b.rating}
           active={b.id === activePinId}
           tags={b.tags}

@@ -24,6 +24,7 @@ export type BoulderDescription = {
   name: string;
   primaryPhotoUrl: string;
   rating: string;
+  holdColor: string;
   xLocation: number;
   yLocation: number;
   namedBy?: string;

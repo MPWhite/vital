@@ -83,7 +83,7 @@ const HoldMark = styled.div`
     top: -1px;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-bottom: 20px solid orange;
+    border-bottom: 20px solid ${(props) => props.holdColor};
     transform: scale(0.6);
   }
 `;
@@ -102,7 +102,7 @@ const BoulderCard = ({
       <BoulderCardDiv active={active}>
         <BoulderCardImage>
           <RatingMark rating={rating} />
-          <HoldMark />
+          <HoldMark holdColor={holdColor} />
           <img src={imgSrc} alt="tmp" />
         </BoulderCardImage>
         <BoulderCardDescription>

@@ -90,6 +90,7 @@ export class BouldersService {
       name: boulder.name,
       primaryPhotoUrl: boulder.primaryPhotoUrl,
       rating: boulder.rating,
+      holdColor: boulder.holdColor,
       xLocation: boulder.xLocation,
       yLocation: boulder.yLocation,
       namedBy: boulder?.namedBy?.displayName,
