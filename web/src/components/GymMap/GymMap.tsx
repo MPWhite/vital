@@ -21,6 +21,7 @@ const Pin = ({
         left: `${x}%`,
         bottom: `${y}%`,
         backgroundColor: color,
+        transform: "translate(-50%, 50%)",
       }}
     />
   );

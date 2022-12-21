@@ -27,6 +27,7 @@ import {
 } from '../sharedTypes/boulders.types';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { S3Service } from '../s3/s3.service';
+import { Location } from '@prisma/client';
 
 class SetBoulderNameDto {
   @IsNotEmpty()
@@ -52,6 +53,10 @@ class CreateBoulderDto {
   @IsNotEmpty()
   @ApiProperty({ example: 'red' })
   holdColor: string;
+  @IsNotEmpty()
+  @ApiProperty({ example: 'AMPHITHEATER' })
+  @IsEnum(Location)
+  location: string;
 }
 
 @Controller('boulders')
@@ -118,6 +123,7 @@ export class BouldersController {
     @Body() boulder: CreateBoulderDto,
     @UploadedFile() file: Express.Multer.File,
   ) {
+    console.log(file);
     const fileType = file.originalname.split('.')[1];
     const key = Math.random().toString(36).substring(7) + '.' + fileType;
     await this.s3.uploadFile(file, key);
@@ -130,6 +136,8 @@ export class BouldersController {
       parseFloat(boulder.xLocation),
       parseFloat(boulder.yLocation),
       boulder.holdColor,
+      // @ts-ignore
+      boulder.location,
     );
   }
 }

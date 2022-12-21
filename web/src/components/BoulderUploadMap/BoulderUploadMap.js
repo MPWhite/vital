@@ -18,10 +18,10 @@ const Pin = styled.div`
   position: absolute;
   width: 10px;
   height: 10px;
-  transform: translate(-50%, -50%);
-  background-color: red;
-  top: ${(props) => props.top};
-  left: ${(props) => props.left};
+  transform: translate(-50%, 50%);
+  background-color: ${(props) => props.rating};
+  bottom: ${(props) => props.x};
+  left: ${(props) => props.y};
   border-radius: 50%;
 `;
 
@@ -35,8 +35,8 @@ const BoulderUploadMap = ({ boulderRating, input: { value, onChange } }) => {
       evt.clientX - (ref.current.offsetLeft - window.pageXOffset);
 
     onChange({
-      top: clickFromTop / ref.current.clientHeight,
-      left: clickFromLeft / ref.current.clientWidth,
+      y: 1 - clickFromTop / ref.current.clientHeight,
+      x: clickFromLeft / ref.current.clientWidth,
     });
   };
 
@@ -51,7 +51,11 @@ const BoulderUploadMap = ({ boulderRating, input: { value, onChange } }) => {
       onClick={handleClick}
     >
       <BoulderMap src="./gymMap.png" l alt="Broken: Requires Image" />
-      <Pin top={formatPercent(value.top)} left={formatPercent(value.left)} />
+      <Pin
+        y={formatPercent(value.x)}
+        x={formatPercent(value.y)}
+        rating={boulderRating}
+      />
     </BoulderUploadMapWrapper>
   );
 };

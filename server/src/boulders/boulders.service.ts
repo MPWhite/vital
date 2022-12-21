@@ -150,6 +150,7 @@ export class BouldersService {
     xLocation: number,
     yLocation: number,
     holdColor: string,
+    location: Location,
   ) {
     this.prisma.$transaction([]);
     await this.prisma.boulder.create({
@@ -161,7 +162,7 @@ export class BouldersService {
         yLocation,
         addedById: userId,
         holdColor,
-        location: Location.AMPHITHEATRE,
+        location,
       },
     });
   }
