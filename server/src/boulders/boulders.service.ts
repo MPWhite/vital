@@ -154,7 +154,7 @@ export class BouldersService {
     location: Location,
   ) {
     this.prisma.$transaction([]);
-    await this.prisma.boulder.create({
+    const b = await this.prisma.boulder.create({
       data: {
         name,
         primaryPhotoUrl,
@@ -166,5 +166,6 @@ export class BouldersService {
         location,
       },
     });
+    return b.id;
   }
 }

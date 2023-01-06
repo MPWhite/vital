@@ -5,14 +5,15 @@ const RatingSelectDiv = styled.div`
   background-color: #333;
   display: flex;
   justify-content: space-around;
-  padding: 10px;
+  padding: 8px;
   border-radius: 50px;
+    margin-bottom: 20px;
 `;
 
 const RatingSelectOption = styled.div<any>`
   background-color: ${(props) => props.rating};
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   border-radius: 50%;
   border: 1px solid ${(props) => (props.selected ? "lime" : props.rating)};
 `;
