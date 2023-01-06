@@ -4,7 +4,7 @@ import { UserPage } from "./layouts/UserPage/UserPage";
 import { Register } from "./layouts/Register/Register";
 import { Login } from "./layouts/Login/Login";
 import BoulderMap from "./layouts/BoulderMap/BoulderMap";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {BrowserRouter, HashRouter, Route, Routes} from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Header } from "./components/Header/Header";
 import { AuthProvider } from "./components/Auth/AuthContextProvider";
@@ -28,7 +28,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <ErrorProvider>
-          <BrowserRouter>
+          <HashRouter>
             <Routes>
               <Route path={"/"} element={<BoulderMap />} />
               <Route path={"/boulder/:boulderId"} element={<BoulderPage />} />
@@ -39,7 +39,7 @@ function App() {
               <Route path={"/upload"} element={<BoulderUpload />} />
               {/*TEST*/}
             </Routes>
-          </BrowserRouter>
+          </HashRouter>
           {/*<ReactQueryDevtools initialIsOpen />*/}
           <ErrorBar />
         </ErrorProvider>
