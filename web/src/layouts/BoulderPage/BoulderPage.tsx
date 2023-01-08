@@ -182,7 +182,7 @@ export function BoulderPage() {
         <ContentDiv>
           <BoulderDescription>
             <BoulderTitle>{boulder.name}</BoulderTitle>
-            <BoulderSubtitle>Named by: Matt</BoulderSubtitle>
+            {/*<BoulderSubtitle>Named by: Matt</BoulderSubtitle>*/}
             <PillContainer>
               {boulder.tags.map((tag) => (
                 <Pill key={tag}>{tag}</Pill>

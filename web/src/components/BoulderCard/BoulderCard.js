@@ -107,7 +107,7 @@ const BoulderCard = ({
         </BoulderCardImage>
         <BoulderCardDescription>
           <BoulderTitle>{title}</BoulderTitle>
-          <BoulderSubtitle>Named by: Matt</BoulderSubtitle>
+          {/*<BoulderSubtitle>Named by: Matt</BoulderSubtitle>*/}
           <PillContainer>
             {tags.map((tag) => (
               <Pill key={tag}>{tag}</Pill>

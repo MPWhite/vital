@@ -8,6 +8,7 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { fetchBoulders } from "./boulderMapApi";
 import { useQuery } from "@tanstack/react-query";
 import {Header} from "../../components/Header/Header";
+import {useQueryState} from "../../hooks/useQueryState";
 
 const BoulderMapWrapper = styled.div`
   display: flex;
