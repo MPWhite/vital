@@ -180,7 +180,7 @@ export const Header = ({}) => {
           </HeadMenuList>
         ) : (
           // TODO - Remove the copied code
-          <>
+          <HeadMenuList>
             <Link to="/">
               <HeaderMenuItem>
                 <FontAwesomeIcon icon={faSearch} />
@@ -193,7 +193,7 @@ export const Header = ({}) => {
                 <HeaderMenuName>Upload</HeaderMenuName>
               </HeaderMenuItem>
             </Link>
-          </>
+          </HeadMenuList>
           )}
       </HeaderMenu>
     </>
