@@ -179,10 +179,22 @@ export const Header = ({}) => {
             </div>
           </HeadMenuList>
         ) : (
-          <CtaWrapper>
-            <SignUpCta />
-          </CtaWrapper>
-        )}
+          // TODO - Remove the copied code
+          <>
+            <Link to="/">
+              <HeaderMenuItem>
+                <FontAwesomeIcon icon={faSearch} />
+                <HeaderMenuName>Search</HeaderMenuName>
+              </HeaderMenuItem>
+            </Link>
+            <Link to="/upload">
+              <HeaderMenuItem>
+                <FontAwesomeIcon icon={faCloudArrowUp} />
+                <HeaderMenuName>Upload</HeaderMenuName>
+              </HeaderMenuItem>
+            </Link>
+          </>
+          )}
       </HeaderMenu>
     </>
   );
