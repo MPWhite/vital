@@ -60,8 +60,13 @@ export function Register() {
       <Title>Create new account</Title>
       <Subtitle>Please fill in the form to continue</Subtitle>
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ email: "", password: "", confirmPassword: "" }}
         onSubmit={async (values) => {
+          if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return;
+          }
+
           await new Promise((resolve) => setTimeout(resolve, 500));
           alert(JSON.stringify(values, null, 2));
         }}
@@ -81,7 +86,7 @@ export function Register() {
             as={RegisterInput}
           />
           <Field
-            name="password"
+            name="confirmPassword"
             type="password"
             placeholder="Confirm password"
             as={RegisterInput}
