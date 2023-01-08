@@ -62,6 +62,7 @@ export function Register() {
       <Formik
         initialValues={{ email: "", password: "", confirmPassword: "" }}
         onSubmit={async (values) => {
+          const { email, password, confirmPassword } = values;
           if (password !== confirmPassword) {
             alert("Passwords do not match");
             return;
