@@ -26,14 +26,14 @@ export class AuthService {
     return null;
   }
 
-  async register(email: string, rawPassword: string) {
+  async register(email: string, rawPassword: string, displayName: string) {
     const maybeUser = await this.usersService.userByEmail(email);
     if (maybeUser) {
       // TODO - return error
       return null;
     }
     const hashedPassword = hashSync(rawPassword, 10);
-    const user = await this.usersService.createUser(email, hashedPassword);
+    const user = await this.usersService.createUser(email, hashedPassword, displayName);
     return {
       access_token: this.jwtService.sign(user),
     };

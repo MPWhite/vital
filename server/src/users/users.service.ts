@@ -57,14 +57,14 @@ export class UsersService {
       where: { email },
     });
   }
-
-  async createUser(email: string, hashedPassword: string): Promise<User> {
-    // TODO -- Figure out what to do about display name
+  options = ["condie.jpeg", "honnold.png", "janja.jpeg", "lowe.jpeg", "ondra.jpeg"];
+  async createUser(email: string, hashedPassword: string, displayName: string): Promise<User> {
     return this.prisma.user.create({
       data: {
         email,
         hashedPassword,
-        displayName: "Crusher32"
+        displayName,
+        profilePicUrl: `https://dl05ydgjha0pz.cloudfront.net/${this.options[Math.floor(Math.random() * this.options.length)]}`,
       },
     });
   }

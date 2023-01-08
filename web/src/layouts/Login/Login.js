@@ -70,7 +70,7 @@ export function Login() {
       <Subtitle>Please sign in to your account</Subtitle>
       <Formik
         initialValues={{
-          email: "email",
+          email: "",
           password: "",
         }}
         validator={() => ({})}

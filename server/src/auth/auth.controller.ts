@@ -16,6 +16,8 @@ class UserRegisterDto {
   email: string;
   @ApiProperty()
   password: string;
+  @ApiProperty()
+  name: string;
 }
 
 @Controller('auth')
@@ -37,6 +39,7 @@ export class AuthController {
     return this.authService.register(
       userRegisterDto.email,
       userRegisterDto.password,
+      userRegisterDto.name,
     );
   }
 }

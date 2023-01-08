@@ -103,12 +103,8 @@ const SubmitButton = styled.button`
       }
     }
   }
-  
-  
 `
-
-
-
+// TODO -- use formik
 export function BoulderUpload() {
   const [file, setFile] = useState();
   const [value, setValue] = useState({ y: 0.5, x: 0.5 });
