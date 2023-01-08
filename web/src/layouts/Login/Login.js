@@ -70,8 +70,8 @@ export function Login() {
       <Subtitle>Please sign in to your account</Subtitle>
       <Formik
         initialValues={{
-          email: "mattp.white95+test-user-2@gmail.com",
-          password: "password",
+          email: "email",
+          password: "",
         }}
         validator={() => ({})}
         onSubmit={async (values, { setSubmitting }) => {

@@ -130,7 +130,7 @@ export function BoulderUpload() {
     });
     setIsSubmitting(false);
     // Redirect to boulder-page
-    window.location.href = `/boulder/${x}`;
+    window.location.href = `#/boulder/${x}`;
   };
 
   return (
